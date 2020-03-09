@@ -1,15 +1,16 @@
 # Сделать хеш, содеращий месяцы и количество дней в месяце. В цикле выводить те месяцы, у которых количество дней ровно 30
 calendar = { 
-    january: 30,
-    february: 28,
+    january: 31,
+    february: 29,
     march: 31,
-    april: 31,
+    april: 30,
     may: 31,
-    june: 31,
+    june: 30,
     july: 31,
     august: 31,
-    september: 31,
+    september: 30,
     october: 31,
-    november: 31,
+    november: 30,
     december: 31
 }
+calendar.each { |months, days| puts months if days == 30 }
