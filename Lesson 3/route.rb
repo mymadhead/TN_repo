@@ -4,4 +4,28 @@
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной до конечной
 class Route
+  attr_reader :departure, :destination
+
+  def initialize(departure, destination)
+    @departure = departure
+    @destination = destination
+    @transit_point = [] # Возможно ли использовать хэш для записи текущей станции и текущего километра пути например?
+  end
+
+  def add_transit_point(point)
+    @transit_point << point
+  end
+
+  def del_transit_point(point)
+    @point.delete(point)
+  end
+
+  def route_points
+    [departure] + @transit_point + [destination]
+  end
+
+  def to_s
+    "Маршрут: #{departure} - #{destination}"
+  end
+
 end
