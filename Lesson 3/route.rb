@@ -9,7 +9,7 @@ class Route
   def initialize(departure, destination)
     @departure = departure
     @destination = destination
-    @transit_point = [] # Возможно ли использовать хэш для записи текущей станции и текущего километра пути например?
+    @transit_point = []
   end
 
   def add_transit_point(point)

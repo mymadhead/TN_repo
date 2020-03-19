@@ -32,7 +32,56 @@ class Train
     train_speed == 0
   end
 
+  def add_vgn
+    if train_stop do
+      @train_length += 1
+    end
+    end
+  end
 
+  def delete_vgn
+    if train_stop do
+      @train_length -= 1
+    end
+    end
+    end
+
+  def move_forward
+    change_current_station(next_station_name)
+  end
+
+  def move_back
+    change_current_station(previous_station_name)
+  end
+
+  def next_station
+    @route.route_points[next_station_name]
+  end
+
+  def previous_station
+    @route.route_points[previous_station_name]
+  end
+
+  def route=(route)
+    @route = route
+    change_current_station(0)
+  end
+
+  def change_current_station(name)
+    @current_station.depart_train(self) if defined?(@current_station)
+    @current_station = @route.route_points[name]
+    @current_station.arrive_train(self)
+    @current_station_name = name
+  end
+
+  def next_station_name
+    @current_station_name + 1
+  end
+
+  def previous_station_name
+    @current_station_name - 1
+  end
 
 
 end
+
