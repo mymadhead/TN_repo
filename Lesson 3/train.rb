@@ -9,4 +9,30 @@
 # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
+  attr_reader :train_num, :train_type, :train_length, :train_speed, :current_station
+
+  def initialize(train_num, train_type, train_length)
+  @train_num = train_num
+  @train_type = train_type
+  @train_length = train_length
+  @train_speed = 0
+  end
+
+  def speed_up(train_speed)
+    @train_speed = train_speed
+    train_speed + 1
+  end
+
+  def speed_down(train_speed)
+    @train_speed = train_speed
+    train_speed - 1
+  end
+
+  def train_stop
+    train_speed == 0
+  end
+
+
+
+
 end
