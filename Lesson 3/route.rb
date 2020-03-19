@@ -4,12 +4,13 @@
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной до конечной
 class Route
-  attr_reader :departure, :destination
+  attr_reader :departure, :destination, :route_name
 
   def initialize(departure, destination)
     @departure = departure
     @destination = destination
     @transit_point = []
+    @route_name = "#{departure.name}->#{destination.name}"
   end
 
   def add_transit_point(point)
@@ -22,6 +23,10 @@ class Route
 
   def route_points
     [departure] + @transit_point + [destination]
+  end
+
+  def route_empty?
+    @transit_point.empty?
   end
 
   def to_s

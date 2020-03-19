@@ -28,4 +28,13 @@ class Station
   def trains_by_type(by_type)
     @trains.select { |train| train.type == by_type }
   end
+
+  def cargo_train
+    @trains.select { |train| train.type == 'cargo'}
+  end
+
+  def passenger_train
+    @trains.select { |train| train.type == 'passenger'}
+  end
+
 end
