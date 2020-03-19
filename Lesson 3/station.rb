@@ -20,9 +20,9 @@ class Station
   end
 
   def to_s
-    @trains.each {
-        |train| puts "#{self.name} station: #{train.train_number}, #{train.type}"
-    }
+    @trains.each do |train|
+      puts "#{self.name} station: #{train.train_number}, #{train.type}"
+    end
   end
 
   def trains_by_type(by_type)
