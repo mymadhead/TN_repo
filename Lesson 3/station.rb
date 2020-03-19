@@ -6,8 +6,9 @@
 # Может отправлять поезда (по одному за раз, при этом, поезд удаляется из списка поездов, находящихся на станции).
 class Station
   attr_reader :trains, :name, :train_num
-  def initialize(name)
+  def initialize(name, trains)
     @name = name
+    @trains = trains
     @train_num = []
     @trains = []
   end
@@ -21,15 +22,10 @@ class Station
   end
 
   def to_s
-    train.each do |train|
-      puts "#{name} station: #{train.train_num}, #{train.type}"
-    end
+    @trains.each { |train| puts "#{name} station: #{train.train_num}, #{train.type}" }
   end
 
   def trains_by_type(by_type)
-    @trains.select do |train|
-      train.type == by_type
-    end
+    @trains.select { |train| train.type == by_type }
   end
-
 end
