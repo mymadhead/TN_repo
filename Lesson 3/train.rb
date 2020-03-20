@@ -5,7 +5,6 @@
 # Может возвращать количество вагонов
 # Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
 # Может принимать маршрут следования (объект класса Route).
-#
 # При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
 # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
@@ -45,10 +44,10 @@ class Train
 
   def delete_wagon(wagon)
     @wagons.delete(wagon) if @speed.zero?
-    puts " Wagon #{wagon} deleted."
+    puts "Wagon #{wagon} deleted."
   end
 
-  def set_route(route)
+  def create_route(route)
     @route = route
     @route.departure.add_train(self)
     @current_route_index = 0
@@ -65,6 +64,13 @@ class Train
     @current_station_name = name
   end
 
+  def next_station_name
+    @current_station_name + 1
+  end
+
+  def previous_station_name
+    @current_station_name - 1
+  end
 
 end
 
