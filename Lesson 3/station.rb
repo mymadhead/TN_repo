@@ -36,5 +36,4 @@ class Station
   def passenger_trains
     @trains.select { |train| train.type == 'passenger'}
   end
-
 end

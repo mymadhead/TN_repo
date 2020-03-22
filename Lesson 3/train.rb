@@ -76,6 +76,5 @@ class Train
   def previous_station_name
     @current_station_name - 1
   end
-
 end
 
