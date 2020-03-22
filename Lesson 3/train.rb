@@ -44,14 +44,6 @@ def delete_wagon(wagon)
   puts "Wagon #{wagon} deleted."
 end
 
-def move_forward
-
-end
-
-def move_backward
-
-end
-
 def create_route(route)
   @route = route
   @route.departure.add_train(self)
@@ -67,6 +59,14 @@ def change_current_station(station)
   @current_station = @route.route_points[station]
   @current_station.arrive_train(self)
   @current_station_name = station
+end
+
+def move_forward
+  change_current_station(next_station_name)
+end
+
+def move_backward
+  change_current_station(previous_station_name)
 end
 
 def next_station_name
