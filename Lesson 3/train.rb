@@ -18,13 +18,11 @@ class Train
     @speed = 0
   end
 
-  def speed_up(speed)
-    @speed = speed
+  def speed_up
     @speed += 1
   end
 
-  def speed_down(speed)
-    @speed = speed
+  def speed_down
     @speed -= 1
   end
 

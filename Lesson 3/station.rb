@@ -22,18 +22,18 @@ class Station
   end
 
   def to_s
-    @trains.each { |train| puts "#{self.name} station: #{train.train_num}, #{train.type}" }
+    @trains.each { |train| puts "#{self.name} station: #{train.train_num}, #{train.train_type}" }
   end
 
   def trains_by_type(by_type)
-    @trains.select { |train| train.type == by_type }
+    @trains.select { |train| train.train_type == by_type }
   end
 
   def cargo_trains
-    @trains.select { |train| train.type == 'cargo'}
+    @trains.select { |train| train.train_type == 'cargo train'}
   end
 
   def passenger_trains
-    @trains.select { |train| train.type == 'passenger'}
+    @trains.select { |train| train.train_type == 'passenger_train'}
   end
 end
