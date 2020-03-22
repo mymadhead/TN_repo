@@ -4,7 +4,7 @@
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной до конечной
 class Route
-  attr_reader :departure, :destination, @route
+  attr_reader :departure, :destination, :route
 
   def initialize(departure, destination)
     @departure = departure
