@@ -29,11 +29,11 @@ class Station
     @trains.select { |train| train.type == by_type }
   end
 
-  def cargo_train
+  def cargo_trains
     @trains.select { |train| train.type == 'cargo'}
   end
 
-  def passenger_train
+  def passenger_trains
     @trains.select { |train| train.type == 'passenger'}
   end
 
