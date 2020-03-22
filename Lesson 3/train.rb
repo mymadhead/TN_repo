@@ -15,6 +15,7 @@ attr_reader :train_num, :wagons, :train_type
 def initialize(train_num)
   @train_num = train_num.to_s
   @wagons = []
+  @speed = 0
 end
 
 def speed_up(speed)
@@ -37,7 +38,6 @@ def add_wagon(wagon)
     puts " Wagon #{wagon} added."
   end
   end
-end
 
 def delete_wagon(wagon)
   @wagons.delete(wagon) if @speed.zero?
