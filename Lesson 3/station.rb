@@ -20,7 +20,7 @@ class Station
   def depart_train(train)
     @trains.delete(train)
   end
-
+  
   def to_s
     @trains.each { |train| puts "#{self.name} station: #{train.train_num}, #{train.train_type}" }
   end
