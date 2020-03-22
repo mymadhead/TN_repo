@@ -33,3 +33,4 @@ class Route
     "Маршрут: #{departure} - #{destination}"
   end
 end
+
