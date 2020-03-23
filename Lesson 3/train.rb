@@ -13,17 +13,17 @@ class Train
   attr_reader :train_num, :wagons, :train_type
 
   def initialize(train_num)
-    @train_num = train_num.to_s
+    @train_num = train_num
     @wagons = []
     @speed = 0
   end
 
   def speed_up
-    @speed += 1
+    @speed + 1
   end
 
   def speed_down
-    @speed -= 1
+    @speed - 1
   end
 
   def stop_train
@@ -31,20 +31,16 @@ class Train
   end
 
   def add_wagon(wagon)
-    if @speed.zero?
-      @wagons << wagon
-      puts " Wagon #{wagon} added."
-    end
+    @wagons << wagon if @speed.zero?
   end
 
   def delete_wagon(wagon)
     @wagons.delete(wagon) if @speed.zero?
-    puts "Wagon #{wagon} deleted."
   end
 
-  def create_route(route)
-    @route = route
-    @route.departure.add_train(self)
+  def current_route(route)
+    @current_route = route
+    @route.departure.arrive_train(self)
     @current_route_index = 0
   end
 
@@ -52,27 +48,18 @@ class Train
     @route.route_points.detect { |station| station.trains.include?(self) }
   end
 
-  def change_current_station(station)
-    @current_station.depart_train(self) if defined?(@current_station)
-    @current_station = @route.route_points[station]
-    @current_station.arrive_train(self)
-    @current_station_name = station
+  def change_current_station
+
   end
 
   def move_forward
-    change_current_station(next_station_name)
+
   end
 
   def move_backward
-    change_current_station(previous_station_name)
+
   end
 
-  def next_station_name
-    @current_station_name + 1
-  end
 
-  def previous_station_name
-    @current_station_name - 1
-  end
 end
 
