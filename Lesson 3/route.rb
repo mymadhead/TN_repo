@@ -10,7 +10,6 @@ class Route
     @departure = departure
     @destination = destination
     @transit_point = []
-    @route = []
   end
 
   def add_transit_point(point)
