@@ -19,11 +19,11 @@ class Train
   end
 
   def speed_up
-    @speed + 1
+    @speed += 1
   end
 
   def speed_down
-    @speed - 1
+    @speed -= 1
   end
 
   def stop_train
