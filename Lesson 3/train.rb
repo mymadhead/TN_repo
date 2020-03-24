@@ -34,11 +34,42 @@ class Train
     @wagons << wagon if @speed.zero?
   end
 
-  def delete_wagon(wagon)
+  def remove_wagon(wagon)
     @wagons.delete(wagon) if @speed.zero?
   end
 
+  def assign_route(route)
+    @route = route
+    @route.departure.arrive_train(self)
+    @current_route_index = 0
+  end
 
+  def current_station
+    @route.route_stations.detect { |station| station.trains.include?(self) }
+  end
 
+  def move_forward
+    return if train_destination
+    leave_station
+    @route.route_stations[@current_route_index += 1].arrive_train(self)
+  end
+
+  def move_backward
+    return if train_departure
+    leave_station
+    @route.route_stations[@current_route_index -= 1].arrive_train(self)
+  end
+
+  def train_departure
+    current_station == @route.departure
+  end
+
+  def train_destination
+    current_station == @route.destination
+  end
+
+  def leave_station
+    current_station.depart_train(self)
+  end
 end
 

@@ -20,7 +20,7 @@ class Route
     @transit_point.delete(point)
   end
 
-  def current_route
+  def route_stations
     [departure] + @transit_point + [destination]
   end
 
