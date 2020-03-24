@@ -38,27 +38,6 @@ class Train
     @wagons.delete(wagon) if @speed.zero?
   end
 
-  def current_route(route)
-    @current_route = route
-    @route.departure.arrive_train(self)
-    @current_route_index = 0
-  end
-
-  def current_station
-    @route.route_points.detect { |station| station.trains.include?(self) }
-  end
-
-  def change_current_station
-
-  end
-
-  def move_forward
-
-  end
-
-  def move_backward
-
-  end
 
 
 end
