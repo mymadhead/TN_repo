@@ -49,23 +49,25 @@ class Train
   end
 
   def move_forward
-    return if train_destination
+    return unless can_move_forward?
+    current_station_index = @route.route_stations.index(current_station)
     leave_station
-    @route.route_stations[@current_route_index += 1].arrive_train(self)
+    @route.route_stations[current_station_index + 1].arrive_train(self)
   end
 
   def move_backward
-    return if train_departure
+    return unless can_move_backward?
+    current_station_index = @route.route_stations.index(current_station)
     leave_station
-    @route.route_stations[@current_route_index -= 1].arrive_train(self)
+    @route.route_stations[current_station_index - 1].arrive_train(self)
   end
 
-  def train_departure
-    current_station == @route.departure
+  def can_move_forward?
+  current_station == @route.departure
   end
 
-  def train_destination
-    current_station == @route.destination
+  def can_move_backward?
+  current_station == @route.destination
   end
 
   def leave_station
