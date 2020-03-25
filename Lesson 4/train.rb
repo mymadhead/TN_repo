@@ -5,28 +5,24 @@
 # Может возвращать количество вагонов
 # Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
 # Может принимать маршрут следования (объект класса Route).
-#
 # При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
 # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
-# Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
+# Возвращать предыдущую станцию, текущую, следующую, на основе маршрута.
 class Train
   attr_accessor :speed
-  attr_reader :train_num, :wagons, :train_type, :route
+  attr_reader :train_num, :wagons, :train_type
 
   def initialize(train_num)
-    @train_num = train_num.to_s
+    @train_num = train_num
     @wagons = []
-    @route = []
     @speed = 0
   end
 
-  def speed_up(speed)
-    @speed = speed
+  def speed_up
     @speed += 1
   end
 
-  def speed_down(speed)
-    @speed = speed
+  def speed_down
     @speed -= 1
   end
 
@@ -35,36 +31,47 @@ class Train
   end
 
   def add_wagon(wagon)
-    if @speed.zero? do
-      @wagons << wagon
-      @wagons += 1
-      puts "Wagon #{wagon} added."
-    end
-    end
+    @wagons << wagon if @speed.zero?
   end
 
-  def delete_wagon(wagon)
+  def remove_wagon(wagon)
     @wagons.delete(wagon) if @speed.zero?
-    puts " Wagon #{wagon} deleted."
   end
 
-  def set_route(route)
+  def assign_route(route)
     @route = route
-    @route.departure.add_train(self)
+    @route.departure.arrive_train(self)
     @current_route_index = 0
   end
 
   def current_station
-    @route.route_points.detect { |station| station.trains.include?(self) }
+    @route.route_stations.detect { |station| station.trains.include?(self) }
   end
 
-  def change_current_station(name)
-    @current_station.depart_train(self) if defined?(@current_station)
-    @current_station = @route.route_points[name]
-    @current_station.arrive_train(self)
-    @current_station_name = name
+  def move_forward
+    return unless can_move_forward?
+    current_station_index = @route.route_stations.index(current_station)
+    leave_station
+    @route.route_stations[current_station_index + 1].arrive_train(self)
   end
 
+  def move_backward
+    return unless can_move_backward?
+    current_station_index = @route.route_stations.index(current_station)
+    leave_station
+    @route.route_stations[current_station_index - 1].arrive_train(self)
+  end
 
+  def can_move_forward?
+  current_station == @route.departure
+  end
+
+  def can_move_backward?
+  current_station == @route.destination
+  end
+
+  def leave_station
+    current_station.depart_train(self)
+  end
 end
 
