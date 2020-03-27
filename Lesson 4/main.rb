@@ -74,11 +74,57 @@ class Menu
   end
 
   def menu_2
-
+    puts 'What do you want to use?'
+    puts 'Type 1 to use created stations.'
+    puts 'Type 2 to use created trains.'
+    puts 'Type 3 to use created routes.'
+    puts 'Type 4 to use created wagons.'
+    puts 'Type 5 to go to the main menu'
+    puts 'Type exit, to exit the program.'
+    case input
+    when '1'
+      use_created_stations
+    when '2'
+      use_created_trains
+    when '3'
+      use_created_routes
+    when '4'
+      use_created_wagons
+    when '5'
+      menu
+    when 'exit'
+      exit(0)
+    else
+      puts 'Wrong input! Try again!'
+      menu_2
+    end
   end
 
   def menu_3
-
+    puts 'What do you looking for?'
+    puts 'Type 1 to look at created stations.'
+    puts 'Type 2 to look at created trains.'
+    puts 'Type 3 to look at created routes.'
+    puts 'Type 4 to look at trains on current station.'
+    puts 'Type 5 to go to the main menu'
+    puts 'Type exit, to exit the program.'
+    case input
+    when '1'
+      stations_list
+    when '2'
+      trains_list
+    when '3'
+      routes_list
+    when '4'
+      current_station_trains
+    when '5'
+      menu
+    when 'exit'
+      exit(0)
+    else
+      puts 'Wrong input! Try again!'
+      menu_3
+    end
   end
 
   def input
