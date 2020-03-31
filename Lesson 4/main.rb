@@ -1,3 +1,13 @@
+#Создать программу в файле main.rb, которая будет позволять пользователю через текстовый интерфейс делать следующее:
+# - Создавать станции
+# - Создавать поезда
+# - Создавать маршруты и управлять станциями в нем (добавлять, удалять)
+# - Назначать маршрут поезду
+# - Добавлять вагоны к поезду
+# - Отцеплять вагоны от поезда
+# - Перемещать поезд по маршруту вперед и назад
+# - Просматривать список станций и список поездов на станции
+
 require_relative 'train'
 require_relative 'station'
 require_relative 'route'
@@ -13,10 +23,10 @@ class Menu
   def initialize
     @stations = []
     @routes = []
-    @pass_train = []
-    @cargo_train = []
-    @pass_wagon = []
-    @cargo_wagon = []
+    @pass_trains = []
+    @cargo_trains = []
+    @pass_wagons = []
+    @cargo_wagons = []
   end
 
   def start
@@ -106,7 +116,8 @@ class Menu
     puts 'Type 2 to look at created trains.'
     puts 'Type 3 to look at created routes.'
     puts 'Type 4 to look at trains on current station.'
-    puts 'Type 5 to go to the main menu'
+    puts 'Type 5 to look at wagons attached to train'
+    puts 'Type 6 to go the main menu'
     puts 'Type exit, to exit the program.'
     case input
     when '1'
@@ -118,6 +129,9 @@ class Menu
     when '4'
       current_station_trains
     when '5'
+      pass_wagons_list
+      cargo_wagons_list
+    when '6'
       menu
     when 'exit'
       exit(0)
@@ -131,6 +145,61 @@ class Menu
     @input = gets.chomp.downcase
   end
 
+  def stations_list
+    puts 'Stations:'
+    @stations.each { |station| puts "#{@stations.index(station) + 1}: #{station.name}" }
+  end
+
+  def routes_list
+    puts 'Routes:'
+    @routes.each { |route| puts "#{@routes.index(route) + 1}: #{route.to_s}" }
+  end
+
+  def trains_list
+    puts 'Trains:'
+    @trains.each { |train| puts "#{train.train_num} - #{train.train_type}" }
+  end
+
+  def pass_trains_list
+    puts 'Passenger trains:'
+    @pass_trains = @trains.select { |train| train.train_type == 'pass' }
+    @pass_trains.each { |train| puts "#{train.train_num}" }
+  end
+
+  def cargo_trains_list
+    puts 'Cargo trains:'
+    @cargo_trains = @trains.select { |train| train.train_type == 'cargo' }
+    @cargo_trains.each { |train| puts "#{train.train_num}" }
+  end
+
+  def pass_wagons_list
+    puts 'Passenger wagons:'
+    @pass_wagons = @wagons.select { |wagon| wagon.type == 'pass'}
+    @pass_wagons.each { |wagon| puts "#{wagon.number}" }
+  end
+
+  def cargo_wagons_list
+    puts 'Cargo wagons:'
+    @cargo_wagons = @wagons.select { |wagon| wagon.type == 'cargo'}
+    @cargo_wagons.each { |wagon| puts "#{wagon.number}" }
+  end
+
+  def train_wagons_list
+    puts "Wagons of the train #{@trains.train_num}"
+    @trains.wagons.each { |wagon| puts "#{@trains.wagons.index(wagon) + 1}: #{wagon.number}"}
+  end
+
+  def route_stations_list
+    puts "Stations of the current route:"
+    @routes[@input.to_i - 1].each { |station| puts "#{@routes[@input.to_i - 1].index(station) + 1}: #{station.name}"}
+  end
+
+  def create_station_menu
+    puts "Enter: station's name."
+    input
+    @stations << Station.new(@input)
+    puts "Station #{@input} was created."
+  end
 
 end
 
