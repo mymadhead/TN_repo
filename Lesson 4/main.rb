@@ -95,7 +95,6 @@ class Menu
     when '1'
       use_created_routes_menu
     when '2', '3'
-      choose_current_train
       use_created_trains_menu
     when '4'
       main_menu
@@ -318,50 +317,6 @@ class Menu
   def remove_station_menu
 
   end
-
-
-
-  def choose_current_train
-    puts 'Type 1, to choose passenger train.'
-    puts 'Type 2, to choose cargo train.'
-    puts 'Type 3, to main menu.'
-    puts 'Type "exit", to exit'
-    case input
-    when '1'
-      pass_trains_list
-      choose_train('pass')
-    when '2'
-      cargo_trains_list
-      choose_train('cargo')
-    when '3'
-      main_menu
-    when 'exit'
-      exit(0)
-    else
-      puts 'Wrong input! Try again!'
-      choose_current_train
-    end
-  end
-
-  def choose_train(type)
-    if !@trains
-      puts 'Firstly create some train!'
-      create_train_menu
-      @train = @trains[0]
-      puts "Train #{@trains[0]} was chosen."
-    elsif @trains.select { |train| train.type == type }.empty?
-      puts "Firstly create some #{type} train."
-      create_train_menu
-      choose_train(type)
-    else
-      puts 'Enter train number.'
-      input
-      input until Train.find(@input)
-      @train = Train.find(@input)
-      puts "Train #{@train.number} was chosen."
-    end
-  end
-
 
   def input
     @input = gets.chomp.downcase
