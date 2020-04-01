@@ -22,7 +22,6 @@ class Menu
 
   def initialize
     @stations = []
-    @trains = []
     @routes = []
     @pass_trains = []
     @cargo_trains = []
@@ -34,6 +33,8 @@ class Menu
     puts 'Welcome to RailWay!'
     main_menu
   end
+
+  private
 
   def main_menu
     puts 'Please choose what do you want to do:'
@@ -272,15 +273,91 @@ class Menu
   end
 
   def set_route_menu
-
+    routes_list
+    if !@routes
+      puts 'Need to create some route!'
+      create_route_menu
+    else
+      puts 'Enter number of the route:'
+      input
+      input until valid_input?(@routes)
+      @trains.assign_route(@routes[@input.to_i - 1])
+      puts "The route #{@routes[@input.to_i - 1].to_s} was set to the train #{@trains.train_num}"
+    end
   end
 
   def add_wagon_menu
+    puts 'Type 1, to add passenger wagon.'
+    puts 'Type 2, to add cargo wagon.'
+    puts 'Type 3, to main menu.'
+    puts 'Type 4, to previous menu.'
+    puts 'Type "exit", to exit.'
+    case input
+    when '1'
+      pass_wagons_list
+      choose_wagon('pass')
+      add_chosen_wagon
+    when '2'
+      cargo_wagons_list
+      choose_wagon('cargo')
+      add_chosen_wagon
+    when '3'
+      main_menu
+    when '4'
+      use_created_trains_menu
+    when 'exit'
+    else
+      puts 'Wrong input! Try again!'
+    end
+  end
 
+  def choose_wagon(type)
+    if !@wagons
+      puts 'Firstly create some carriage.'
+      create_wagon_menu
+      @wagon = wagons[0]
+    elsif @wagons.select { |wagon| wagon.type == type}.empty?
+      puts "Create some #{type} wagon at first"
+      create_wagon_menu
+      @wagon = @wagons.find { |wagon| wagon.type == type }
+      puts "Wagon #{@wagon.number} was chosen."
+    else
+      puts 'Enter wagon number:'
+      input
+      input until wagon_by_number(@input)
+      @wagon = wagon_by_number(@input)
+      puts "Wagon #{@wagon.number} was chosen."
+    end
+  end
+
+  def add_chosen_wagon
+    if @wagon.type != @trains.train_type
+      puts "Wrong type of wagon!"
+      puts "Choose another wagon or train."
+     add_wagon_menu
+    elsif @trains && @wagon
+      @trains.add_wagon(@wagon)
+      puts "Wagon #{@wagon.number} added to the train #{@trains.train_num}."
+    elsif !@trains
+      puts 'Choose some train at first!'
+      add_chosen_wagon
+    elsif !@wagon
+      puts 'Choose some wagon at first!'
+      add_wagon_menu
+    elsif @speed > 0
+      puts 'Stop the train at first!'
+    else
+      puts 'Wrong type of wagon.'
+    end
+  end
+
+  def wagon_by_number(number)
+    @wagons.find { |wagon| wagon.number == number }
   end
 
   def remove_wagon_menu
-
+      choose_wagon(@trains.wagons)
+      @trains.remove_wagon(@wagons)
   end
 
   def use_created_routes_menu
@@ -311,11 +388,49 @@ class Menu
   end
 
   def add_station_menu
-
+    puts 'For adding station:'
+    if !@routes
+      puts 'Firstly create some route.'
+      create_route_menu
+    else
+      puts 'Choose route:'
+      routes_list
+      input
+      input until valid_input?(@routes)
+      used_route_index = @input.to_i - 1
+      puts 'Choose station:'
+      stations_list
+      input
+      input until valid_input?(@stations)
+      used_station_index = @input.to_i - 1
+      @routes[used_route_index].add_transit_point(@stations[used_station_index]) until @routes[used_route_index].stations.include?(@stations[used_station_index])
+      puts "Station #{@stations[@input.to_i - 1].name} added to the chosen route."
+    end
   end
 
   def remove_station_menu
-
+    if !@routes
+      puts 'Create some route at first!'
+      create_route_menu
+    else
+      puts 'To delete station:'
+      puts 'Choose route:'
+      routes_list
+      input
+      input until valid_input?(@routes)
+      used_route_index = @input.to_i - 1
+      if @routes[used_route_index].stations.size == 2
+        puts 'Route must contents at least 2 stations!'
+        puts "You can't delete station, anymore."
+      else
+        puts 'Choose station:'
+        route_stations_list
+        input
+        input until valid_input?(@stations)
+        @routes[used_route_index].del_transit_point(@stations[@input.to_i - 1]) while @routes.include?(@stations[@input.to_i])
+        puts "Station #{@stations[@input.to_i - 1].name} deleted from the chosen route."
+      end
+    end
   end
 
   def input
@@ -376,7 +491,24 @@ class Menu
   end
 
   def current_station_trains_list
-
+    if !@stations
+      puts 'Create some stations at first!'
+      create_station_menu
+    else
+      stations_list
+      puts 'Enter number of station:'
+      input until valid_input?(@stations)
+      station_number = @input.to_i
+      puts "On current station #{@stations[station_number - 1].name}:"
+      if !@stations[station_number - 1].trains
+        puts '0 trains.'
+      else
+        puts "Passenger trains on station:"
+        puts @stations[station_number - 1].show_trains_on_station_by_type('pass').each.number
+        puts "Cargo trains on station:"
+        puts @stations[station_number - 1].show_trains_on_station_by_type('cargo').each.number
+      end
+    end
   end
 
   def go_next_station_menu
