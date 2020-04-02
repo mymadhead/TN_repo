@@ -313,7 +313,7 @@ class Menu
 
   def choose_wagon(type)
     if !@wagons
-      puts 'Firstly create some carriage.'
+      puts 'Firstly create some wagon.'
       create_wagon_menu
       @wagon = wagons[0]
     elsif @wagons.select { |wagon| wagon.type == type}.empty?
