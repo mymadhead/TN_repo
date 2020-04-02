@@ -73,5 +73,6 @@ class Train
   def leave_station
     current_station.depart_train(self)
   end
+
 end
 

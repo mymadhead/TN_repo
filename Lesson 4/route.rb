@@ -27,5 +27,6 @@ class Route
   def to_s
     puts "Current route: #{departure.name}->#{destination.name}"
   end
+
 end
 
