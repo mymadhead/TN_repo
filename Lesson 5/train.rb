@@ -13,11 +13,14 @@ require_relative 'Manufacturer'
 class Train
   include Manufacturer
   attr_accessor :speed
-  attr_reader :train_num, :wagons, :train_type
-  def initialize(train_num)
-    @train_num = train_num
-    @wagons = []
+  attr_reader :number, :wagons, :type
+  def initialize(number)
+    @number = number
     @speed = 0
+  end
+
+  def self.find(number)
+    @@all.find { |train| train.number == number }
   end
 
   def speed_up
@@ -33,7 +36,8 @@ class Train
   end
 
   def add_wagon(wagon)
-    @wagons << wagon if @speed.zero?
+    @wagons ||= Array.new
+    @wagons << wagon
   end
 
   def remove_wagon(wagon)
