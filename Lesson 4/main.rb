@@ -19,7 +19,6 @@ require_relative 'passenger_wagon'
 
 
 class Menu
-
   def initialize
     @stations = []
     @routes = []
@@ -520,8 +519,6 @@ class Menu
     @trains.move_backward
     puts "Train #{@trains.train_num} now on the #{@trains.current_station.name} station."
   end
-
 end
-
 
 Menu.new.start

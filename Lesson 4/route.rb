@@ -5,7 +5,6 @@
 # Может выводить список всех станций по-порядку от начальной до конечной
 class Route
   attr_reader :departure, :destination
-
   def initialize(departure, destination)
     @departure = departure
     @destination = destination
@@ -27,6 +26,5 @@ class Route
   def to_s
     puts "Current route: #{departure.name}->#{destination.name}"
   end
-
 end
 

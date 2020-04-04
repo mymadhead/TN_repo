@@ -11,7 +11,6 @@
 class Train
   attr_accessor :speed
   attr_reader :train_num, :wagons, :train_type
-
   def initialize(train_num)
     @train_num = train_num
     @wagons = []
@@ -73,6 +72,5 @@ class Train
   def leave_station
     current_station.depart_train(self)
   end
-
 end
 
