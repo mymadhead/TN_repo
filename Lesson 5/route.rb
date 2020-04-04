@@ -3,7 +3,10 @@
 # Может добавлять промежуточную станцию в список
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной до конечной
+require_relative 'instance_counter'
+
 class Route
+  include InstanceCounter
   attr_reader :departure, :destination
   def initialize(departure, destination)
     @departure = departure

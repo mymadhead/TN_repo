@@ -8,10 +8,13 @@
 # При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
 # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута.
-require_relative 'Manufacturer'
+require_relative 'manufacturer'
+require_relative 'instance_counter'
 
 class Train
   include Manufacturer
+  include InstanceCounter
+
   attr_accessor :speed
   attr_reader :number, :wagons, :type
   def initialize(number)
