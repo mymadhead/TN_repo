@@ -8,11 +8,17 @@ class Station
   attr_reader :trains, :name
   def initialize(name)
     @name = name
-    @trains = []
+    @@all ||=Array.new
+    @@all << self
+  end
+
+  def self.all
+    @@all
   end
 
   def arrive_train(train)
-    @trains << train unless trains.include?(train)
+    @trains ||= Array.new
+    @trains << train
   end
 
   def depart_train(train)
