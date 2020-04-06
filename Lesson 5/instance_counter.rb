@@ -1,3 +1,4 @@
+# InstanceCounter module
 module InstanceCounter
   include InstanceMethods
   extend ClassMethods
