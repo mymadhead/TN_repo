@@ -125,7 +125,7 @@ class Interface
     begin
     puts "Enter: station's name."
     input
-    @stations ||= Array.new
+    @stations ||= []
     @stations << Station.new(input)
   rescue StandardError => e
     puts e.message
@@ -149,7 +149,7 @@ class Interface
       puts 'Type number of destination station:'
       input until valid_input?(@stations) && @stations[@input.to_i - 1] != departure
       destination = @stations[@input.to_i - 1]
-      @routes ||= Array.new
+      @routes ||= []
       @routes << Route.new(departure, destination)
       rescue StandardError => e
         puts e.message
@@ -185,7 +185,7 @@ class Interface
     begin
     puts 'Please, type train number:'
     input
-    @trains ||= Array.new
+    @trains ||= []
     @trains << PassengerTrain.new(input)
   rescue StandardError => e
     puts e.message
@@ -200,7 +200,7 @@ class Interface
     begin
     puts 'Please, type train number:'
     input
-    @trains ||= Array.new
+    @trains ||= []
     @trains << CargoTrain.new(input)
   rescue StandardError => e
     puts e.message
@@ -234,7 +234,7 @@ class Interface
     begin
     puts 'Type number of passenger wagon:'
     input
-    @wagons ||= Array.new
+    @wagons ||= []
     @wagons << PassengerWagon.new(input)
   rescue StandardError => e
     puts e.message
@@ -248,7 +248,7 @@ class Interface
     begin
     puts 'Type number of cargo wagon:'
     input
-    @wagons ||= Array.new
+    @wagons ||= []
     @wagons << CargoWagon.new(input)
   rescue StandardError => e
     puts e.message

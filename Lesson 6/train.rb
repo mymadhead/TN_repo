@@ -47,7 +47,7 @@ class Train
   def add_wagon(wagon)
     stop_train
     validate_wagon_type!
-    @wagons ||= Array.new
+    @wagons ||= []
     @wagons << wagon
   end
 
