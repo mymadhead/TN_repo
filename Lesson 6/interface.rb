@@ -122,10 +122,17 @@ class Interface
   end
 
   def create_station_menu
+    begin
     puts "Enter: station's name."
     input
-    @stations << Station.new(@input)
+    @stations ||= Array.new
+    @stations << Station.new(input)
+  rescue StandardError => e
+    puts e.message
+    retry
+    ensure
     puts "Station #{@input} was created."
+    end
   end
 
   def create_route_menu
@@ -133,6 +140,7 @@ class Interface
       puts 'Need departure and destination stations at least!'
       create_station_menu
     else
+      begin
       stations_list
       puts 'Type number of departure station:'
       input
@@ -143,9 +151,15 @@ class Interface
       destination = @stations[@input.to_i - 1]
       @routes ||= Array.new
       @routes << Route.new(departure, destination)
+      rescue StandardError => e
+        puts e.message
+        retry
+        ensure
       puts 'New route was created.'
     end
+    end
   end
+
 
   def create_train_menu
     puts 'What train do you need?'
@@ -168,19 +182,32 @@ class Interface
   end
 
   def create_pass_train
+    begin
     puts 'Please, type train number:'
     input
     @trains ||= Array.new
-    @pass_trains << PassengerTrain
+    @trains << PassengerTrain.new(input)
+  rescue StandardError => e
+    puts e.message
+    retry
+    ensure
     puts "Passenger train #{@input} was created!"
+    end
   end
 
+
   def create_cargo_train
+    begin
     puts 'Please, type train number:'
     input
     @trains ||= Array.new
-    @cargo_trains << CargoTrain
+    @trains << CargoTrain.new(input)
+  rescue StandardError => e
+    puts e.message
+    retry
+    ensure
     puts "Cargo train #{@input} was created!"
+    end
   end
 
   def create_wagon_menu
@@ -204,19 +231,31 @@ class Interface
   end
 
   def create_pass_wagon
+    begin
     puts 'Type number of passenger wagon:'
     input
     @wagons ||= Array.new
-    @pass_wagons << PassengerWagon
+    @wagons << PassengerWagon.new(input)
+  rescue StandardError => e
+    puts e.message
+    retry
+    ensure
     puts "Passenger wagon #{@input} was created!"
+  end
   end
 
   def create_cargo_wagon
+    begin
     puts 'Type number of cargo wagon:'
     input
     @wagons ||= Array.new
-    @cargo_wagons << CargoWagon
+    @wagons << CargoWagon.new(input)
+  rescue StandardError => e
+    puts e.message
+    retry
+    ensure
     puts "Passenger wagon #{@input} was created!"
+    end
   end
 
   def use_created_trains_menu
@@ -266,7 +305,7 @@ class Interface
       input
       input until valid_input?(@routes)
       @trains.assign_route(@routes[@input.to_i - 1])
-      puts "The route #{@routes[@input.to_i - 1].to_s} was set to the train #{@trains.train_num}"
+      puts "The route #{@routes[@input.to_i - 1].to_s} was set to the train #{@trains.number}"
     end
   end
 
@@ -421,14 +460,23 @@ class Interface
   end
 
   def go_next_station_menu
+    begin
     @trains.move_forward
     puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
+  rescue StandardError => e
+    puts e.message
+    end
   end
 
   def go_previous_station_menu
+    begin
     @trains.move_backward
     puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
+  rescue StandardError => e
+    puts e.message
+    end
   end
+
 
   def input
     @input = gets.chomp.downcase
@@ -441,50 +489,68 @@ class Interface
   def stations_list
     puts 'Stations:'
     @stations.each { |station| puts "#{@stations.index(station) + 1}: #{station.name}" }
+  rescue
+    puts 'You must create some station!'
   end
 
   def routes_list
     puts 'Routes:'
     @routes.each { |route| puts "#{@routes.index(route) + 1}: #{route.to_s}" }
+  rescue
+    puts 'You must create some route!'
   end
 
   def trains_list
     puts 'Trains:'
     @trains.each { |train| puts "#{train.number} - #{train.type}" }
+  rescue
+    puts 'You must create some train!'
   end
 
   def pass_trains_list
     puts 'Passenger trains:'
-    @pass_trains = @trains.select { |train| train.type == 'pass' }
-    @pass_trains.each { |train| puts "#{train.number}" }
+    pass_trains = @trains.select { |train| train.type == 'pass' }
+    pass_trains.each { |train| puts "#{train.number}" }
+  rescue
+    puts 'You must create some train!'
   end
 
   def cargo_trains_list
     puts 'Cargo trains:'
-    @cargo_trains = @trains.select { |train| train.type == 'cargo' }
-    @cargo_trains.each { |train| puts "#{train.number}" }
+    cargo_trains = @trains.select { |train| train.type == 'cargo' }
+    cargo_trains.each { |train| puts "#{train.number}" }
+  rescue
+    puts 'You must create some train!'
   end
 
   def pass_wagons_list
     puts 'Passenger wagons:'
-    @pass_wagons = @wagons.select { |wagon| wagon.type == 'pass'}
-    @pass_wagons.each { |wagon| puts "#{wagon.number}" }
+    pass_wagons = @wagons.select { |wagon| wagon.type == 'pass'}
+    pass_wagons.each { |wagon| puts "#{wagon.number}" }
+  rescue
+    puts 'You must create some train!'
   end
 
   def cargo_wagons_list
     puts 'Cargo wagons:'
-    @cargo_wagons = @wagons.select { |wagon| wagon.type == 'cargo'}
-    @cargo_wagons.each { |wagon| puts "#{wagon.number}" }
+    cargo_wagons = @wagons.select { |wagon| wagon.type == 'cargo'}
+    cargo_wagons.each { |wagon| puts "#{wagon.number}" }
+  rescue
+    puts 'You must create some train!'
   end
 
   def train_wagons_list
     puts "Wagons of the train #{@trains.number}"
     @trains.wagons.each { |wagon| puts "#{@trains.wagons.index(wagon) + 1}: #{wagon.number}"}
+  rescue
+    puts 'You must create some wagon!'
   end
 
   def route_stations_list
     puts "Stations of the current route:"
     @routes[@input.to_i - 1].each { |station| puts "#{@routes[@input.to_i - 1].index(station) + 1}: #{station.name}"}
+  rescue
+    puts 'You must create some stations to routes at first!'
   end
 
   def current_station_trains_list
