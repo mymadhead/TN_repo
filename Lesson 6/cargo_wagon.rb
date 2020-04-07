@@ -1,5 +1,6 @@
 class CargoWagon
-  def wagon_type
-    @wagon_type = :cargo
+  def wagon_type(number, type = :cargo)
+    @type = type
+    super
   end
 end

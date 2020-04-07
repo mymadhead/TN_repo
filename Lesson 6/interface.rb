@@ -1,4 +1,3 @@
-
 require_relative 'train'
 require_relative 'passenger_train'
 require_relative 'cargo_train'
@@ -19,10 +18,10 @@ class Interface
 
   def main_menu
     puts 'Please choose what do you want to do:'
-    puts 'Type 1, to create station, route for train or add/remove wagons from train'
-    puts 'Type 2, to use created stations, routes, wagons'
-    puts 'Type 3, to look at created stations, routes, wagons'
-    puts 'Type exit, to exit the program'
+    puts 'Type 1, to create station, route for train or add/remove wagons from train.'
+    puts 'Type 2, to use created stations, routes, wagons.'
+    puts 'Type 3, to look at created stations, routes, wagons.'
+    puts 'Type 0, to exit the program.'
     case input
     when '1'
       create_menu
@@ -30,7 +29,7 @@ class Interface
       created_menu
     when '3'
       watch_menu
-    when 'exit'
+    when '0'
       puts 'Good bye!'
       exit(0)
     else
@@ -46,7 +45,7 @@ class Interface
     puts 'Type 3, to create a route for train.'
     puts 'Type 4, to create a wagon.'
     puts 'Type 5, to go to the main menu.'
-    puts 'Type Exit, to exit the program.'
+    puts 'Type 0, to exit the program.'
     case input
     when '1'
       create_station_menu
@@ -58,7 +57,8 @@ class Interface
       create_wagon_menu
     when '5'
       main_menu
-    when 'exit'
+    when '0'
+      puts 'Good bye!'
       exit(0)
     else
       puts 'Wrong input! Try again!'
@@ -71,8 +71,8 @@ class Interface
     puts 'Type 1, to use created routes.'
     puts 'Type 2, to use created trains.'
     puts 'Type 3, to use created wagons.'
-    puts 'Type 4, to go to the main menu'
-    puts 'Type "exit", to exit the program.'
+    puts 'Type 4, to go to the main menu.'
+    puts 'Type 0, to exit the program.'
     case input
     when '1'
       use_created_routes_menu
@@ -80,7 +80,8 @@ class Interface
       use_created_trains_menu
     when '4'
       main_menu
-    when 'exit'
+    when '0'
+      puts 'Good bye!'
       exit(0)
     else
       puts 'Wrong input! Try again!'
@@ -94,9 +95,9 @@ class Interface
     puts 'Type 2, to look at created trains.'
     puts 'Type 3, to look at created routes.'
     puts 'Type 4, to look at trains on current station.'
-    puts 'Type 5, to look at wagons attached to train'
-    puts 'Type 6, to go the main menu'
-    puts 'Type "exit", to exit the program.'
+    puts 'Type 5, to look at wagons attached to train.'
+    puts 'Type 6, to go the main menu.'
+    puts 'Type 0, to exit the program.'
     case input
     when '1'
       stations_list
@@ -111,7 +112,8 @@ class Interface
       cargo_wagons_list
     when '6'
       main_menu
-    when 'exit'
+    when '0'
+      puts 'Good bye!'
       exit(0)
     else
       puts 'Wrong input! Try again!'
@@ -226,7 +228,7 @@ class Interface
     puts 'Type 5, to go to the next station.'
     puts 'Type 6, to the previous menu.'
     puts 'Type 7, to the main menu.'
-    puts 'Type "exit", to exit'
+    puts 'Type 0, to exit the program.'
     case input
     when '1'
       set_route_menu
@@ -245,7 +247,8 @@ class Interface
       created_menu
     when '7'
       main_menu
-    when 'exit'
+    when '0'
+      puts 'Good bye!'
       exit(0)
     else
       puts 'Wrong input! Try again!'
@@ -272,7 +275,7 @@ class Interface
     puts 'Type 2, to add cargo wagon.'
     puts 'Type 3, to main menu.'
     puts 'Type 4, to previous menu.'
-    puts 'Type "exit", to exit.'
+    puts 'Type 0, to exit.'
     case input
     when '1'
       pass_wagons_list
@@ -286,7 +289,9 @@ class Interface
       main_menu
     when '4'
       use_created_trains_menu
-    when 'exit'
+    when '0'
+      puts 'Good bye!'
+      exit(0)
     else
       puts 'Wrong input! Try again!'
     end
@@ -348,7 +353,7 @@ class Interface
     puts 'Type 3, to train menu.'
     puts 'Type 4, to previous menu.'
     puts 'Type 5, to main menu.'
-    puts 'Type "exit", to exit.'
+    puts 'Type 0, to exit th program.'
     case input
     when '1'
       add_station_menu
@@ -360,7 +365,8 @@ class Interface
       created_menu
     when '5'
       main_menu
-    when 'exit'
+    when '0'
+      puts 'Good bye!'
       exit(0)
     else
       puts 'Wrong input! Try again!'
