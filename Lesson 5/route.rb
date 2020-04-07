@@ -4,14 +4,19 @@
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной до конечной
 require_relative 'instance_counter'
+require_relative 'validate'
 
 class Route
   include InstanceCounter
+  include Validate
+
   attr_reader :departure, :destination
   def initialize(departure, destination)
+    register_instance
     @departure = departure
     @destination = destination
     @transit_point = []
+    validate!
   end
 
   def add_transit_point(point)
@@ -28,6 +33,12 @@ class Route
 
   def to_s
     puts "Current route: #{departure.name}->#{destination.name}"
+  end
+
+  def validate!
+    validate_name!
+    validate_route!
+    validate_format!
   end
 end
 

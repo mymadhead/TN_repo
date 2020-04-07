@@ -10,16 +10,22 @@
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута.
 require_relative 'manufacturer'
 require_relative 'instance_counter'
+require_relative 'validate'
 
 class Train
   include Manufacturer
   include InstanceCounter
+  include Validate
 
   attr_accessor :speed
   attr_reader :number, :wagons, :type
+
   def initialize(number)
+    register_instance
     @number = number
     @speed = 0
+    validate!
+    @@all << self
   end
 
   def self.find(number)
@@ -39,6 +45,8 @@ class Train
   end
 
   def add_wagon(wagon)
+    stop_train
+    validate_wagon_type!
     @wagons ||= Array.new
     @wagons << wagon
   end
@@ -81,6 +89,16 @@ class Train
 
   def leave_station
     current_station.depart_train(self)
+  end
+
+  private
+
+  def validate!
+    validate_number!
+    validate_type!
+    validate_speed!
+    validate_wagon_type!
+    validate_format!
   end
 end
 
