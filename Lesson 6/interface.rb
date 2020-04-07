@@ -477,7 +477,6 @@ class Interface
     end
   end
 
-
   def input
     @input = gets.chomp.downcase
   end
