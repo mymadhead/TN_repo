@@ -91,6 +91,10 @@ class Train
     current_station.depart_train(self)
   end
 
+  def each_wagon
+    @wagons.map { |wagon| yield wagon }
+  end
+
   private
 
   def validate!

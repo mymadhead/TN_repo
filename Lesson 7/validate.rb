@@ -36,4 +36,20 @@ module Validate
   def validate_wagon_type!(wagon)
     raise 'Wagon type is incorrect! Take another wagon type or train!' unless wagon.type == self.type
   end
-end
+
+  def validate_seats!
+    raise 'Number of seats should be an integer and more than 0' unless @seats > 0 && @seats.is_a?;Integer
+  end
+
+  def validate_free_seats!
+    raise 'In this wagon no free seats! Choose another wagon.' if @free_seats.zero?
+  end
+
+  def validate_volume!
+    raise 'Volume must be more than 0!' unless @volume > 0
+  end
+
+  def validate_free_volume!
+    raise 'In this wagon no free volume! Choose another wagon.' if @free_volume == 0 && value > @free_volume
+  end
+  end
