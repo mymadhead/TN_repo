@@ -129,8 +129,8 @@ class Interface
   end
 
   def create_route_menu
-    if @stations.size < 2
-      puts 'Need departure and destination stations at least!'
+    if @stations.nil? || @stations.size < 2
+      puts 'Firstly create at least 2 stations.'
       create_station_menu
     else
       begin
@@ -152,7 +152,6 @@ class Interface
     end
     end
   end
-
 
   def create_train_menu
     puts 'What train do you need?'
