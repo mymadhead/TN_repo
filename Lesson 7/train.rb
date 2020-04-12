@@ -1,13 +1,3 @@
-# Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество вагонов, эти данные указываются при создании экземпляра класса
-# Может набирать скорость
-# Может возвращать текущую скорость
-# Может тормозить (сбрасывать скорость до нуля)
-# Может возвращать количество вагонов
-# Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
-# Может принимать маршрут следования (объект класса Route).
-# При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
-# Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
-# Возвращать предыдущую станцию, текущую, следующую, на основе маршрута.
 require_relative 'manufacturer'
 require_relative 'instance_counter'
 require_relative 'validate'
@@ -20,12 +10,15 @@ class Train
   attr_accessor :speed
   attr_reader :number, :wagons, :type
 
-  def initialize(number)
-    register_instance
+  @@all = []
+
+  def initialize(number, type)
     @number = number
+    @type = type
     @speed = 0
     validate!
     @@all << self
+    register_instance
   end
 
   def self.find(number)
@@ -93,6 +86,14 @@ class Train
 
   def each_wagon
     @wagons.map { |wagon| yield wagon }
+  end
+
+  def train_info
+    puts "Train №#{self.number}, type: #{self.type}, wagons count: #{self.wagons.size}"
+  end
+
+  def wagon_info
+    each_wagon { |wagon| wagon.info }
   end
 
   private

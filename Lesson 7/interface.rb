@@ -256,10 +256,12 @@ class Interface
     puts 'Type 1, to create a route for a train.'
     puts 'Type 2, to attach a wagon to the train.'
     puts 'Type 3, to remove a wagon from a train.'
-    puts 'Type 4, to go to the previous station.'
-    puts 'Type 5, to go to the next station.'
-    puts 'Type 6, to the previous menu.'
-    puts 'Type 7, to the main menu.'
+    puts 'Type 4, to increase speed of a train.'
+    puts 'Type 5, to decrease speed of a train.'
+    puts 'Type 6, to go to the previous station.'
+    puts 'Type 7, to go to the next station.'
+    puts 'Type 8, to the previous menu.'
+    puts 'Type 9, to the main menu.'
     puts 'Type 0, to exit the program.'
     case input
     when '1'
@@ -270,14 +272,18 @@ class Interface
       train_wagons_list
       remove_wagon_menu
     when '4'
+      increase_speed
+    when '5'
+      decrease_speed
+    when '6'
       set_route_menu until @trains.route
       go_previous_station_menu
-    when '5'
+    when '7'
       set_route_menu until @trains.route
       go_next_station_menu
-    when '6'
+    when '8'
       created_menu
-    when '7'
+    when '9'
       main_menu
     when '0'
       puts 'Good bye!'
@@ -379,6 +385,34 @@ class Interface
     puts "Wagon #{@wagon.number} was removed from train #{@train.number}"
   rescue StandardError => e
     puts e.message
+  end
+
+  def increase_speed
+    puts 'Type number of a train:'
+    input
+    train = Train.find(@input)
+    if train.nil?
+      puts 'No train at that number!'
+    else
+      puts 'What speed you want assign to train?'
+      input
+      train.speed_up(@input.to_i)
+      puts "Speed of a train № #{train.number} was increased to #{@input}"
+    end
+  end
+
+  def decrease_speed
+    puts 'Type number of a train:'
+    input
+    train = Train.find(@input)
+    if train.nil?
+      puts 'No train at that number!'
+    else
+      puts 'What speed you want assign to train?'
+      input
+      train.speed_down(@input.to_i)
+      puts "Speed of a train № #{train.number} was increased to #{@input}"
+    end
   end
 
   def use_created_routes_menu
