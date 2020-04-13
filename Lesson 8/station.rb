@@ -36,7 +36,9 @@ class Station
   end
 
   def to_s
-    @trains.each { |train| puts " #{name} station: #{train.number}, #{train.type} " }
+    each_train do |train|
+      puts "Number: #{train.number}, type: #{train.type}, wagons: #{train.number_of_wagons}."
+    end
   end
 
   private
@@ -44,4 +46,4 @@ class Station
   def validate!
     validate_name!
   end
-end
+  end

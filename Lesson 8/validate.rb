@@ -46,7 +46,7 @@ module Validate
   end
 
   def validate_volume!
-    raise 'Volume must be more than 0!' unless @volume > 0
+    raise 'Volume must be more than 0!' unless @volume != 0
   end
 
   def validate_free_volume!

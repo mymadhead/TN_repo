@@ -12,17 +12,6 @@ class Seed
     route_seed
   end
 
-  def seed
-    seed = Seed.new
-    @stations = seed.stations
-    @trains = seed.trains
-    @routes = seed.routes
-    seed_message
-  end
-
-  def seed_message
-    puts 'Stations, routes and trains successfully created!'
-  end
 
   def station_seed
     8.times do
@@ -31,10 +20,6 @@ class Seed
   end
 
   def wagon_seed
-
-  end
-
-  def add_wagons
 
   end
 
