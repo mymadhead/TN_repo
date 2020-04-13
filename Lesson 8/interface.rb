@@ -1,5 +1,6 @@
 class Interface
 
+=begin
   def seed
     seed = Seed.new
     @stations = seed.stations
@@ -11,6 +12,7 @@ class Interface
   def seed_message
     puts 'Stations, routes and trains successfully created!'
   end
+=end
 
   def start
     puts 'Welcome to RailWay!'
