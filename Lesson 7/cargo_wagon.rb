@@ -2,17 +2,18 @@ require_relative 'validate'
 
 class CargoWagon < Wagon
   include Validate
-  attr_accessor :volume, :free_volume, :taken_volume
+  attr_accessor :free_volume, :taken_volume
 
-  def initialize(volume)
+  def initialize(number, volume)
+    super(number)
     @volume = volume
     @free_volume = @volume
     @taken_volume = @volume - @free_volume
     validate!
   end
 
-  def wagon_type(number, type = :cargo)
-    super
+  def type
+    @type = 'cargo'
   end
 
   def take_volume(value)

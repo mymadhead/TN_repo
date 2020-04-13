@@ -1,5 +1,17 @@
 class Interface
 
+  def seed
+    seed = Seed.new
+    @stations = seed.stations
+    @trains = seed.trains
+    @routes = seed.routes
+    seed_message
+  end
+
+  def seed_message
+    puts 'Stations, routes and trains successfully created!'
+  end
+
   def start
     puts 'Welcome to RailWay!'
     main_menu
@@ -12,6 +24,7 @@ class Interface
     puts 'Type 1, to create station, route for train or add/remove wagons from train.'
     puts 'Type 2, to use created stations, routes, wagons.'
     puts 'Type 3, to look at created stations, routes, wagons.'
+    puts 'Type 4, to test program.'
     puts 'Type 0, to exit the program.'
     case input
     when '1'
@@ -20,6 +33,8 @@ class Interface
       created_menu
     when '3'
       watch_menu
+    when '4'
+      seed
     when '0'
       puts 'Good bye!'
       exit(0)
@@ -305,10 +320,9 @@ class Interface
 
   def create_station_menu
     begin
-    puts "Enter: station's name."
+    puts "Type station name:"
     input
-    @stations ||= []
-    @stations << Station.new(input)
+    @stations << Station.new(@input)
   rescue StandardError => e
     puts e.message
     retry
@@ -379,13 +393,17 @@ class Interface
     begin
     puts 'Type number of passenger wagon:'
     input
+    number = @input
+    puts 'Type number of seats:'
+    input
+    seats = @input.to_i
     @wagons ||= []
-    @wagons << PassengerWagon.new(input)
+    @wagons << PassengerWagon.new(number, seats)
   rescue StandardError => e
     puts e.message
     retry
     ensure
-    puts "Passenger wagon #{@input} was created!"
+    puts "Passenger wagon #{number} with seats count: #{seats} was created!"
   end
   end
 
@@ -393,13 +411,17 @@ class Interface
     begin
     puts 'Type number of cargo wagon:'
     input
+    number = @input
+    puts 'Type wagon volume:'
+    input
+    volume = @input.to_i
     @wagons ||= []
-    @wagons << CargoWagon.new(input)
+    @wagons << CargoWagon.new(number, volume)
   rescue StandardError => e
     puts e.message
     retry
     ensure
-    puts "Passenger wagon #{@input} was created!"
+    puts "Cargo wagon #{number} with volume #{volume} was created!"
     end
   end
 

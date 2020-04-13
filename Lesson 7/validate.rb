@@ -1,6 +1,6 @@
-# Validation module
 module Validate
-  NUMBER_FORMAT = /^[a-z0-9] {3}-? [a-z0-9]{2}$/i
+  NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
+  NAME_FORMAT = /^[A-Z][a-z]+$/.freeze
 
   def valid?
     validate!
@@ -18,7 +18,7 @@ module Validate
   end
 
   def validate_name!
-    raise 'Name cannot be empty. It must contains letters!' if name.empty?
+    raise 'Name cannot be empty. It must contains letters!' if name.empty? && name !~ NAME_FORMAT
   end
 
   def validate_route!

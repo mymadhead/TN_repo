@@ -1,5 +1,3 @@
-# Station_class
-
 require_relative 'instance_counter'
 require_relative 'validate'
 
@@ -11,8 +9,9 @@ class Station
   def initialize(name)
     @name = name
     validate!
-    @@all ||=Array.new
+    @@all ||= []
     @@all << self
+    register_instance
   end
 
   def self.all
@@ -20,7 +19,7 @@ class Station
   end
 
   def arrive_train(train)
-    @trains ||= Array.new
+    @trains ||= []
     @trains << train
   end
 
@@ -44,7 +43,5 @@ class Station
 
   def validate!
     validate_name!
-    validate_format!
-    validate_number!
   end
 end

@@ -2,17 +2,18 @@ require_relative 'validate'
 
 class PassengerWagon < Wagon
   include Validate
-  attr_accessor :seats, :free_seats, :taken_seats
+  attr_accessor :free_seats, :taken_seats, :seats
 
-  def initialize(seats)
+  def initialize(number, seats)
+    super(number)
     @seats = seats
     @free_seats = @seats
     @taken_seats = @seats - @free_seats
     validate!
   end
 
-  def wagon_type(number, type = :passenger)
-    super
+  def type
+    @type = 'passenger'
   end
 
   def take_seat
