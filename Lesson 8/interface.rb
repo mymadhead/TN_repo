@@ -12,7 +12,6 @@ class Interface
     puts 'Stations, routes and trains successfully created!'
   end
 
-
   def start
     puts 'Welcome to RailWay!'
     main_menu

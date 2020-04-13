@@ -88,6 +88,14 @@ class Train
     @wagons.map { |wagon| yield wagon }
   end
 
+  def train_info
+    puts "Train №#{self.number}, type: #{self.type}, wagons count: #{self.wagons.size}"
+  end
+
+  def wagon_info
+    each_wagon { |wagon| wagon.info }
+  end
+
   def number_of_wagons
     @wagons ||= []
     @wagons.count
@@ -99,6 +107,8 @@ class Train
     validate_number!
     validate_type!
     validate_speed!
+    validate_wagon_type!
+    validate_format!
   end
 end
 
