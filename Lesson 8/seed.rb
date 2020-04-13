@@ -12,6 +12,18 @@ class Seed
     route_seed
   end
 
+  def seed
+    seed = Seed.new
+    @stations = seed.stations
+    @trains = seed.trains
+    @routes = seed.routes
+    seed_message
+  end
+
+  def seed_message
+    puts 'Stations, routes and trains successfully created!'
+  end
+
   def station_seed
     8.times do
       @stations << Station.new(%w[a b c d].sample + %w[l m n o p].sample + %w[1 2 3 4 5].sample)

@@ -1,17 +1,5 @@
 class Interface
 
-  def seed
-    seed = Seed.new
-    @stations = seed.stations
-    @trains = seed.trains
-    @routes = seed.routes
-    seed_message
-  end
-
-  def seed_message
-    puts 'Stations, routes and trains successfully created!'
-  end
-
   def start
     puts 'Welcome to RailWay!'
     main_menu
