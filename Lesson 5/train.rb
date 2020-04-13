@@ -8,28 +8,13 @@
 # При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
 # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута.
-require_relative 'manufacturer'
-require_relative 'instance_counter'
-require_relative 'validate'
-
 class Train
-  include Manufacturer
-  include InstanceCounter
-  include Validate
-
   attr_accessor :speed
-  attr_reader :number, :wagons, :type
-
-  def initialize(number)
-    register_instance
-    @number = number
+  attr_reader :train_num, :wagons, :train_type
+  def initialize(train_num)
+    @train_num = train_num
+    @wagons = []
     @speed = 0
-    validate!
-    @@all << self
-  end
-
-  def self.find(number)
-    @@all.find { |train| train.number == number }
   end
 
   def speed_up
@@ -45,10 +30,7 @@ class Train
   end
 
   def add_wagon(wagon)
-    stop_train
-    validate_wagon_type!
-    @wagons ||= Array.new
-    @wagons << wagon
+    @wagons << wagon if @speed.zero?
   end
 
   def remove_wagon(wagon)
@@ -89,16 +71,6 @@ class Train
 
   def leave_station
     current_station.depart_train(self)
-  end
-
-  private
-
-  def validate!
-    validate_number!
-    validate_type!
-    validate_speed!
-    validate_wagon_type!
-    validate_format!
   end
 end
 

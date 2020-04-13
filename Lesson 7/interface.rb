@@ -1,16 +1,13 @@
+require_relative 'train'
+require_relative 'passenger_train'
+require_relative 'cargo_train'
+require_relative 'station'
+require_relative 'route'
+require_relative 'wagon'
+require_relative 'cargo_wagon'
+require_relative 'passenger_wagon'
+
 class Interface
-
-  def seed
-    seed = Seed.new
-    @stations = seed.stations
-    @trains = seed.trains
-    @routes = seed.routes
-    seed_message
-  end
-
-  def seed_message
-    puts 'Stations, routes and trains successfully created!'
-  end
 
   def start
     puts 'Welcome to RailWay!'
@@ -24,7 +21,6 @@ class Interface
     puts 'Type 1, to create station, route for train or add/remove wagons from train.'
     puts 'Type 2, to use created stations, routes, wagons.'
     puts 'Type 3, to look at created stations, routes, wagons.'
-    puts 'Type 4, to test program.'
     puts 'Type 0, to exit the program.'
     case input
     when '1'
@@ -33,8 +29,6 @@ class Interface
       created_menu
     when '3'
       watch_menu
-    when '4'
-      seed
     when '0'
       puts 'Good bye!'
       exit(0)
@@ -82,10 +76,8 @@ class Interface
     case input
     when '1'
       use_created_routes_menu
-    when '2'
+    when '2', '3'
       use_created_trains_menu
-    when '3'
-      use_created_wagons_menu
     when '4'
       main_menu
     when '0'
@@ -129,200 +121,12 @@ class Interface
     end
   end
 
-  def use_created_trains_menu
-    puts 'What do you want to do?'
-    puts 'Type 1, to create a route for a train.'
-    puts 'Type 2, to attach a wagon to the train.'
-    puts 'Type 3, to remove a wagon from a train.'
-    puts 'Type 4, to increase speed of a train.'
-    puts 'Type 5, to decrease speed of a train.'
-    puts 'Type 6, to go to the previous station.'
-    puts 'Type 7, to go to the next station.'
-    puts 'Type 8, to the previous menu.'
-    puts 'Type 9, to the main menu.'
-    puts 'Type 0, to exit the program.'
-    case input
-    when '1'
-      set_route_menu
-    when '2'
-      add_wagon_menu
-    when '3'
-      train_wagons_list
-      remove_wagon_menu
-    when '4'
-      increase_speed
-    when '5'
-      decrease_speed
-    when '6'
-      set_route_menu until @trains.route
-      go_previous_station_menu
-    when '7'
-      set_route_menu until @trains.route
-      go_next_station_menu
-    when '8'
-      created_menu
-    when '9'
-      main_menu
-    when '0'
-      puts 'Good bye!'
-      exit(0)
-    else
-      puts 'Wrong input! Try again!'
-      use_created_trains_menu
-    end
-  end
-
-  def use_created_routes_menu
-    puts 'What do you want to use?'
-    puts 'Type 1, to add station to the route.'
-    puts 'Type 2, to remove station from the route.'
-    puts 'Type 3, to train menu.'
-    puts 'Type 4, to previous menu.'
-    puts 'Type 5, to main menu.'
-    puts 'Type 0, to exit th program.'
-    case input
-    when '1'
-      add_station_menu
-    when '2'
-      remove_station_menu
-    when '3'
-      use_created_trains_menu
-    when '4'
-      created_menu
-    when '5'
-      main_menu
-    when '0'
-      puts 'Good bye!'
-      exit(0)
-    else
-      puts 'Wrong input! Try again!'
-      use_created_routes_menu
-    end
-  end
-
-  def use_created_wagons_menu
-    puts 'Type 1, to add or delete wagon from a train.'
-    puts 'Type 2, to take a seat at passenger wagon.'
-    puts 'Type 3, to take a volume in a cargo wagon.'
-    puts 'Type 4, to previous menu.'
-    puts 'Type 0, to exit the program.'
-    case input
-    when '1'
-      chose_train_menu
-      use_created_trains_menu
-    when '2'
-      pass_wagons_list
-      chose_wagon('passenger')
-      take_seat_at_chosen_wagon
-    when '3'
-      cargo_wagons_list
-      chose_wagon('cargo')
-      take_volume_at_chosen_wagon
-    when '4'
-      created_menu
-    when '0'
-      exit(0)
-    else
-      puts 'Wrong input! Try again!'
-      use_created_wagons_menu
-    end
-  end
-
-  def create_train_menu
-    puts 'What train do you need?'
-    puts 'Type 1, to create a passenger train.'
-    puts 'Type 2, to create a cargo train.'
-    puts 'Type 3, to previous menu.'
-    puts 'Type 4, to main menu.'
-    case input
-    when '1'
-      create_pass_train
-    when '2'
-      create_cargo_train
-    when '3'
-      create_menu
-    when '4'
-      main_menu
-    else
-      puts 'Wrong input! Try again!'
-    end
-  end
-
-  def chose_train_menu
-    puts 'Type 1, to choose passenger train.'
-    puts 'Type 2, to choose cargo train.'
-    puts 'Type 3, to main menu.'
-    puts 'Type 0, to exit the program.'
-    case input
-    when '1'
-      pass_trains_list
-      chose_train('passenger')
-    when '2'
-      cargo_trains_list
-      chose_train('cargo')
-    when '3'
-      main_menu
-    when '0'
-      exit(0)
-    else
-      puts 'Wrong input! Try again!'
-      chose_train_menu
-    end
-  end
-
-  def create_wagon_menu
-    puts 'Type 1, to create passenger wagon.'
-    puts 'Type 2, to create cargo wagon.'
-    puts 'Type 3, to previous menu.'
-    puts 'Type 4, to main menu.'
-    case input
-    when '1'
-      create_pass_wagon
-    when '2'
-      create_cargo_wagon
-    when '3'
-      create_menu
-    when '4'
-      main_menu
-    else
-      puts 'Wrong input! Try again!'
-      create_wagon_menu
-    end
-  end
-
-  def add_wagon_menu
-    puts 'Type 1, to add passenger wagon.'
-    puts 'Type 2, to add cargo wagon.'
-    puts 'Type 3, to main menu.'
-    puts 'Type 4, to previous menu.'
-    puts 'Type 0, to exit.'
-    case input
-    when '1'
-      pass_wagons_list
-      chose_wagon('pass')
-      add_chosen_wagon
-    when '2'
-      cargo_wagons_list
-      chose_wagon('cargo')
-      add_chosen_wagon
-    when '3'
-      main_menu
-    when '4'
-      use_created_trains_menu
-    when '0'
-      puts 'Good bye!'
-      exit(0)
-    else
-      puts 'Wrong input! Try again!'
-    end
-  end
-
-
   def create_station_menu
     begin
-    puts "Type station name:"
+    puts "Enter: station's name."
     input
-    @stations << Station.new(@input)
+    @stations ||= []
+    @stations << Station.new(input)
   rescue StandardError => e
     puts e.message
     retry
@@ -332,8 +136,8 @@ class Interface
   end
 
   def create_route_menu
-    if @stations.nil? || @stations.size < 2
-      puts 'Firstly create at least 2 stations.'
+    if @stations.size < 2
+      puts 'Need departure and destination stations at least!'
       create_station_menu
     else
       begin
@@ -357,6 +161,25 @@ class Interface
   end
 
 
+  def create_train_menu
+    puts 'What train do you need?'
+    puts 'Type 1, to create a passenger train.'
+    puts 'Type 2, to create a cargo train.'
+    puts 'Type 3, to previous menu.'
+    puts 'Type 4, to main menu.'
+    case input
+    when '1'
+      create_pass_train
+    when '2'
+      create_cargo_train
+    when '3'
+      create_menu
+    when '4'
+      main_menu
+    else
+      puts 'Wrong input! Try again!'
+    end
+  end
 
   def create_pass_train
     begin
@@ -387,23 +210,37 @@ class Interface
     end
   end
 
-
+  def create_wagon_menu
+    puts 'Type 1, to create passenger wagon.'
+    puts 'Type 2, to create cargo wagon.'
+    puts 'Type 3, to previous menu.'
+    puts 'Type 4, to main menu.'
+    case input
+    when '1'
+      create_pass_wagon
+    when '2'
+      create_cargo_wagon
+    when '3'
+      create_menu
+    when '4'
+      main_menu
+    else
+      puts 'Wrong input! Try again!'
+      create_wagon_menu
+    end
+  end
 
   def create_pass_wagon
     begin
     puts 'Type number of passenger wagon:'
     input
-    number = @input
-    puts 'Type number of seats:'
-    input
-    seats = @input.to_i
     @wagons ||= []
-    @wagons << PassengerWagon.new(number, seats)
+    @wagons << PassengerWagon.new(input)
   rescue StandardError => e
     puts e.message
     retry
     ensure
-    puts "Passenger wagon #{number} with seats count: #{seats} was created!"
+    puts "Passenger wagon #{@input} was created!"
   end
   end
 
@@ -411,17 +248,50 @@ class Interface
     begin
     puts 'Type number of cargo wagon:'
     input
-    number = @input
-    puts 'Type wagon volume:'
-    input
-    volume = @input.to_i
     @wagons ||= []
-    @wagons << CargoWagon.new(number, volume)
+    @wagons << CargoWagon.new(input)
   rescue StandardError => e
     puts e.message
     retry
     ensure
-    puts "Cargo wagon #{number} with volume #{volume} was created!"
+    puts "Passenger wagon #{@input} was created!"
+    end
+  end
+
+  def use_created_trains_menu
+    puts 'What do you want to do?'
+    puts 'Type 1, to create a route for a train.'
+    puts 'Type 2, to attach a wagon to the train.'
+    puts 'Type 3, to remove a wagon from a train.'
+    puts 'Type 4, to go to the previous station.'
+    puts 'Type 5, to go to the next station.'
+    puts 'Type 6, to the previous menu.'
+    puts 'Type 7, to the main menu.'
+    puts 'Type 0, to exit the program.'
+    case input
+    when '1'
+      set_route_menu
+    when '2'
+      add_wagon_menu
+    when '3'
+      train_wagons_list
+      remove_wagon_menu
+    when '4'
+      set_route_menu until @trains.route
+      go_previous_station_menu
+    when '5'
+      set_route_menu until @trains.route
+      go_next_station_menu
+    when '6'
+      created_menu
+    when '7'
+      main_menu
+    when '0'
+      puts 'Good bye!'
+      exit(0)
+    else
+      puts 'Wrong input! Try again!'
+      use_created_trains_menu
     end
   end
 
@@ -439,7 +309,34 @@ class Interface
     end
   end
 
-  def chose_wagon(type)
+  def add_wagon_menu
+    puts 'Type 1, to add passenger wagon.'
+    puts 'Type 2, to add cargo wagon.'
+    puts 'Type 3, to main menu.'
+    puts 'Type 4, to previous menu.'
+    puts 'Type 0, to exit.'
+    case input
+    when '1'
+      pass_wagons_list
+      choose_wagon('pass')
+      add_chosen_wagon
+    when '2'
+      cargo_wagons_list
+      choose_wagon('cargo')
+      add_chosen_wagon
+    when '3'
+      main_menu
+    when '4'
+      use_created_trains_menu
+    when '0'
+      puts 'Good bye!'
+      exit(0)
+    else
+      puts 'Wrong input! Try again!'
+    end
+  end
+
+  def choose_wagon(type)
     if !@wagons
       puts 'Firstly create some wagon.'
       create_wagon_menu
@@ -461,16 +358,16 @@ class Interface
   def add_chosen_wagon
     if @wagon.type != @trains.type
       puts "Wrong type of wagon!"
-      puts "Chose another wagon or train."
+      puts "Choose another wagon or train."
       add_wagon_menu
     elsif @trains && @wagon
       @trains.add_wagon(@wagon)
       puts "Wagon #{@wagon.number} added to the train #{@trains.number}."
     elsif !@trains
-      puts 'Chose some train at first!'
+      puts 'Choose some train at first!'
       add_chosen_wagon
     elsif !@wagon
-      puts 'Chose some wagon at first!'
+      puts 'Choose some wagon at first!'
       add_wagon_menu
     elsif @speed > 0
       puts 'Stop the train at first!'
@@ -486,36 +383,33 @@ class Interface
   def remove_wagon_menu
     choose_wagon(@trains.wagons)
     @trains.remove_wagon(@wagons)
-    puts "Wagon #{@wagon.number} was removed from train #{@train.number}"
-  rescue StandardError => e
-    puts e.message
   end
 
-  def increase_speed
-    puts 'Type number of a train:'
-    input
-    train = Train.find(@input)
-    if train.nil?
-      puts 'No train at that number!'
+  def use_created_routes_menu
+    puts 'What do you want to use?'
+    puts 'Type 1, to add station to the route.'
+    puts 'Type 2, to remove station from the route.'
+    puts 'Type 3, to train menu.'
+    puts 'Type 4, to previous menu.'
+    puts 'Type 5, to main menu.'
+    puts 'Type 0, to exit th program.'
+    case input
+    when '1'
+      add_station_menu
+    when '2'
+      remove_station_menu
+    when '3'
+      use_created_trains_menu
+    when '4'
+      created_menu
+    when '5'
+      main_menu
+    when '0'
+      puts 'Good bye!'
+      exit(0)
     else
-      puts 'What speed you want assign to train?'
-      input
-      train.speed_up(@input.to_i)
-      puts "Speed of a train № #{train.number} was increased to #{@input}"
-    end
-  end
-
-  def decrease_speed
-    puts 'Type number of a train:'
-    input
-    train = Train.find(@input)
-    if train.nil?
-      puts 'No train at that number!'
-    else
-      puts 'What speed you want assign to train?'
-      input
-      train.speed_down(@input.to_i)
-      puts "Speed of a train № #{train.number} was increased to #{@input}"
+      puts 'Wrong input! Try again!'
+      use_created_routes_menu
     end
   end
 
@@ -525,12 +419,12 @@ class Interface
       puts 'Firstly create some route.'
       create_route_menu
     else
-      puts 'Chose route:'
+      puts 'Choose route:'
       routes_list
       input
       input until valid_input?(@routes)
       used_route_index = @input.to_i - 1
-      puts 'Chose station:'
+      puts 'Choose station:'
       stations_list
       input
       input until valid_input?(@stations)
@@ -546,7 +440,7 @@ class Interface
       create_route_menu
     else
       puts 'To delete station:'
-      puts 'Chose route:'
+      puts 'Choose route:'
       routes_list
       input
       input until valid_input?(@routes)
@@ -555,7 +449,7 @@ class Interface
         puts 'Route must contents at least 2 stations!'
         puts "You can't delete station, anymore."
       else
-        puts 'Chose station:'
+        puts 'Choose station:'
         route_stations_list
         input
         input until valid_input?(@stations)
@@ -580,44 +474,6 @@ class Interface
     puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
   rescue StandardError => e
     puts e.message
-    end
-  end
-
-  def take_seat_at_chosen_wagon
-    @wagon.take_seat
-  rescue StandardError => e
-    puts e.message
-    retry
-  ensure
-    puts "In #{@wagon.number} taken 1 seat."
-  end
-
-  def take_volume_at_chosen_wagon
-    puts 'What amount of volume you wanna take?'
-    @wagon.take_volume(input.to_i)
-  rescue StandardError => e
-    puts e.message
-    retry
-  ensure
-    puts " Taken #{@input} volume of the #{@wagon.number}"
-  end
-
-  def chose_train(type)
-    if !@trains
-      puts 'Create some train at first!'
-      create_train_menu
-      @train = @trains[0]
-      puts "Train #{@trains[0]} was chosen."
-      elsif @trains.select { |train| train.type == type }.empty?
-        puts "Create some #{type} train at first!"
-        create_train_menu
-        chose_train(type)
-    else
-      puts 'Type train number:'
-      input
-      input until Train.find(@input)
-      @train = Train.find(@input)
-      puts "Train #{@train.number} was chosen!"
     end
   end
 

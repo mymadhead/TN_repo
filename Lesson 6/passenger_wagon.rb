@@ -1,5 +1,5 @@
 class PassengerWagon < Wagon
-  def wagon_type(number, type = :passenger)
-    super
+  def wagon_type
+    @wagon_type = :passenger
   end
 end

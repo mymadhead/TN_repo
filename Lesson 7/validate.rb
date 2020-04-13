@@ -1,6 +1,6 @@
+# Validation module
 module Validate
-  NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
-  NAME_FORMAT = /^[A-Z][a-z]+$/.freeze
+  NUMBER_FORMAT = /^[a-z0-9] {3}-? [a-z0-9]{2}$/i
 
   def valid?
     validate!
@@ -18,7 +18,7 @@ module Validate
   end
 
   def validate_name!
-    raise 'Name cannot be empty. It must contains letters!' if name.empty? && name !~ NAME_FORMAT
+    raise 'Name cannot be empty. It must contains letters!' if name.empty?
   end
 
   def validate_route!
@@ -36,20 +36,4 @@ module Validate
   def validate_wagon_type!(wagon)
     raise 'Wagon type is incorrect! Take another wagon type or train!' unless wagon.type == self.type
   end
-
-  def validate_seats!
-    raise 'Number of seats should be an integer and more than 0' unless @seats > 0 && @seats.is_a?;Integer
-  end
-
-  def validate_free_seats!
-    raise 'In this wagon no free seats! Choose another wagon.' if @free_seats.zero?
-  end
-
-  def validate_volume!
-    raise 'Volume must be more than 0!' unless @volume > 0
-  end
-
-  def validate_free_volume!
-    raise 'In this wagon no free volume! Choose another wagon.' if @free_volume == 0 && value > @free_volume
-  end
-  end
+end

@@ -330,13 +330,13 @@ class Menu
   end
 
   def add_chosen_wagon
-    if @wagon.type != @trains.type
+    if @wagon.type != @trains.train_type
       puts "Wrong type of wagon!"
       puts "Choose another wagon or train."
      add_wagon_menu
     elsif @trains && @wagon
       @trains.add_wagon(@wagon)
-      puts "Wagon #{@wagon.number} added to the train #{@trains.number}."
+      puts "Wagon #{@wagon.number} added to the train #{@trains.train_num}."
     elsif !@trains
       puts 'Choose some train at first!'
       add_chosen_wagon
@@ -452,19 +452,19 @@ class Menu
 
   def trains_list
     puts 'Trains:'
-    @trains.each { |train| puts "#{train.number} - #{train.type}" }
+    @trains.each { |train| puts "#{train.train_num} - #{train.train_type}" }
   end
 
   def pass_trains_list
     puts 'Passenger trains:'
-    @pass_trains = @trains.select { |train| train.type == 'pass' }
-    @pass_trains.each { |train| puts "#{train.number}" }
+    @pass_trains = @trains.select { |train| train.train_type == 'pass' }
+    @pass_trains.each { |train| puts "#{train.train_num}" }
   end
 
   def cargo_trains_list
     puts 'Cargo trains:'
-    @cargo_trains = @trains.select { |train| train.type == 'cargo' }
-    @cargo_trains.each { |train| puts "#{train.number}" }
+    @cargo_trains = @trains.select { |train| train.train_type == 'cargo' }
+    @cargo_trains.each { |train| puts "#{train.train_num}" }
   end
 
   def pass_wagons_list
@@ -480,7 +480,7 @@ class Menu
   end
 
   def train_wagons_list
-    puts "Wagons of the train #{@trains.number}"
+    puts "Wagons of the train #{@trains.train_num}"
     @trains.wagons.each { |wagon| puts "#{@trains.wagons.index(wagon) + 1}: #{wagon.number}"}
   end
 
@@ -512,12 +512,12 @@ class Menu
 
   def go_next_station_menu
     @trains.move_forward
-    puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
+    puts "Train #{@trains.train_num} now on the #{@trains.current_station.name} station."
   end
 
   def go_previous_station_menu
     @trains.move_backward
-    puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
+    puts "Train #{@trains.train_num} now on the #{@trains.current_station.name} station."
   end
 end
 

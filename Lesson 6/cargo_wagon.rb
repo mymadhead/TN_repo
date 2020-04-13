@@ -1,5 +1,5 @@
-class CargoWagon < Train
-  def wagon_type(number, type = :cargo)
-    super
+class CargoWagon
+  def wagon_type
+    @wagon_type = :cargo
   end
 end
