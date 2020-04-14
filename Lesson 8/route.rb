@@ -34,7 +34,7 @@ class Route
   private
 
   def validate!
-    validate_name!
+    validate_route_name!
     validate_route!
     validate_format!
   end

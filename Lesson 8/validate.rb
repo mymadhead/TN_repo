@@ -19,15 +19,25 @@ module Validate
   end
 
   def validate_name!
-    raise 'Name cannot be empty. It must contains letters!' if name.empty? && name !~ NAME_FORMAT
+  unless name !~ NUMBER_FORMAT
+    raise 'Name format: start with capital letter than downcase letters.'
+  end
   end
 
   def validate_route!
     raise 'Route cannot be empty. It must contains two stations at least!' if route.empty?
   end
 
+=begin
+  def validate_route_name!
+    unless  == @route_name
+      raise 'Name format: start with capital letter than downcase letters.'
+    end
+  end
+=end
+
   def validate_format!
-    raise 'Character format is incorrect! Try again!' if number !~ NUMBER_FORMAT
+    raise 'Character format is incorrect! Try again!' unless number !~ NUMBER_FORMAT
   end
 
   def validate_speed!

@@ -361,7 +361,6 @@ class Interface
   def create_pass_train
     begin
     puts 'Please, type train number:'
-    input
     @trains ||= []
     @trains << PassengerTrain.new(input)
   rescue StandardError => e
@@ -376,7 +375,6 @@ class Interface
   def create_cargo_train
     begin
     puts 'Please, type train number:'
-    input
     @trains ||= []
     @trains << CargoTrain.new(input)
   rescue StandardError => e
@@ -498,7 +496,7 @@ class Interface
     if train.nil?
       puts 'No train at that number!'
     else
-      puts 'What speed you want assign to train?'
+      puts 'What speed you want assign to the train?'
       input
       train.speed_up(@input.to_i)
       puts "Speed of a train № #{train.number} was increased to #{@input}"
@@ -512,7 +510,7 @@ class Interface
     if train.nil?
       puts 'No train at that number!'
     else
-      puts 'What speed you want assign to train?'
+      puts 'What speed you want assign to the train?'
       input
       train.speed_down(@input.to_i)
       puts "Speed of a train № #{train.number} was increased to #{@input}"
