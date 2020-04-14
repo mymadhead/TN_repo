@@ -5,13 +5,12 @@ class Route
   include InstanceCounter
   include Validate
 
-  attr_reader :departure, :destination, :transit_stations, :route_name
+  attr_reader :stations, :departure, :destination, :transit_stations, :route_name
   def initialize(departure, destination)
-    @departure = departure
-    @destination = destination
-    validate!
+    @stations = [departure, destination]
     @transit_stations = []
     @route_name = "#{departure.name}->#{destination.name}"
+    validate!
     register_instance
   end
 
@@ -34,9 +33,7 @@ class Route
   private
 
   def validate!
-    validate_route_name!
     validate_route!
-    validate_format!
   end
 end
 

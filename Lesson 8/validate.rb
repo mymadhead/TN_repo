@@ -25,16 +25,8 @@ module Validate
   end
 
   def validate_route!
-    raise 'Route cannot be empty. It must contains two stations at least!' if route.empty?
+    raise 'Route should has at least two stations!' if @stations.count < 2
   end
-
-=begin
-  def validate_route_name!
-    unless  == @route_name
-      raise 'Name format: start with capital letter than downcase letters.'
-    end
-  end
-=end
 
   def validate_format!
     raise 'Character format is incorrect! Try again!' unless number !~ NUMBER_FORMAT
