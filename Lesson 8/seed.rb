@@ -6,10 +6,12 @@ class Seed
     @trains = []
     @routes = []
     station_seed
-    @trains << CargoTrain.new(number, type)
-    @trains << PassengerTrain.new(number, type)
+    @trains << CargoTrain.new(%w[1 2 3 4].sample)
+    @trains << PassengerTrain.new(%w[1 2 3 4].sample)
+=begin
     wagon_seed
     route_seed
+=end
   end
 
 

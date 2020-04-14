@@ -12,13 +12,12 @@ class Train
 
   @@all = []
 
-  def initialize(number, type)
-    @number = number
-    @type = type
+  def initialize(number)
+    register_instance
+    @number = number.to_s
     @speed = 0
     validate!
     @@all << self
-    register_instance
   end
 
   def self.find(number)

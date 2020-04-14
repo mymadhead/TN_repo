@@ -14,7 +14,8 @@ module Validate
   end
 
   def validate_type!
-    raise 'Type cannot be empty. It must contains characters!' if type.empty?
+    return if type == type
+    raise 'Invalid type of train! Choose another wagon or train.'
   end
 
   def validate_name!
@@ -33,8 +34,8 @@ module Validate
     raise 'Speed must be at 0 to 190 km/h!' unless (0..190).include?(speed)
   end
 
-  def validate_wagon_type!(wagon)
-    raise 'Wagon type is incorrect! Take another wagon type or train!' unless wagon.type == self.type
+  def validate_wagon_type!
+    raise 'Wagon type is incorrect! Take another wagon type or train!' unless type == self.type
   end
 
   def validate_seats!
