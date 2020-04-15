@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# Interface class
-
 class Interface
   def seed
     seed = Seed.new
@@ -107,7 +105,6 @@ class Interface
     puts 'Type 3, to look at created routes.'
     puts 'Type 4, to look at trains on current station.'
     puts 'Type 5, to look at wagons attached to train.'
-    puts 'Type 6, to go the main menu.'
     puts 'Type 0, to exit the program.'
     case input
     when '1'
@@ -121,8 +118,6 @@ class Interface
     when '5'
       pass_wagons_list
       cargo_wagons_list
-    when '6'
-      main_menu
     when '0'
       puts 'Good bye!'
       exit(0)
@@ -141,8 +136,6 @@ class Interface
     puts 'Type 5, to decrease speed of a train.'
     puts 'Type 6, to go to the previous station.'
     puts 'Type 7, to go to the next station.'
-    puts 'Type 8, to the previous menu.'
-    puts 'Type 9, to the main menu.'
     puts 'Type 0, to exit the program.'
     case input
     when '1'
@@ -162,10 +155,6 @@ class Interface
     when '7'
       set_route_menu until @trains.route
       go_next_station_menu
-    when '8'
-      created_menu
-    when '9'
-      main_menu
     when '0'
       puts 'Good bye!'
       exit(0)
@@ -179,21 +168,12 @@ class Interface
     puts 'What do you want to use?'
     puts 'Type 1, to add station to the route.'
     puts 'Type 2, to remove station from the route.'
-    puts 'Type 3, to train menu.'
-    puts 'Type 4, to previous menu.'
-    puts 'Type 5, to main menu.'
     puts 'Type 0, to exit th program.'
     case input
     when '1'
       add_station_menu
     when '2'
       remove_station_menu
-    when '3'
-      use_created_trains_menu
-    when '4'
-      created_menu
-    when '5'
-      main_menu
     when '0'
       puts 'Good bye!'
       exit(0)
@@ -207,7 +187,6 @@ class Interface
     puts 'Type 1, to add or delete wagon from a train.'
     puts 'Type 2, to take a seat at passenger wagon.'
     puts 'Type 3, to take a volume in a cargo wagon.'
-    puts 'Type 4, to previous menu.'
     puts 'Type 0, to exit the program.'
     case input
     when '1'
@@ -221,8 +200,6 @@ class Interface
       cargo_wagons_list
       chose_wagon('cargo')
       take_volume_at_chosen_wagon
-    when '4'
-      created_menu
     when '0'
       exit(0)
     else

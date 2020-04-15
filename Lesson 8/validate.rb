@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validate
   NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
   NAME_FORMAT = /^[A-Z][a-z]+$/.freeze
@@ -5,7 +7,7 @@ module Validate
   def valid?
     validate!
     true
-  rescue
+  rescue RuntimeError
     false
   end
 
@@ -42,7 +44,7 @@ module Validate
   end
 
   def validate_seats!
-    raise 'Number of seats should be an integer and more than 0' unless @seats > 0 && @seats.is_a?;Integer
+    raise 'Number of seats should be an integer and more than 0' unless @seats > 0 && @seats.is_a?(Wagon)
   end
 
   def validate_free_seats!
@@ -54,6 +56,6 @@ module Validate
   end
 
   def validate_free_volume!
-    raise 'In this wagon no free volume! Choose another wagon.' if @free_volume == 0 && value > @free_volume
+    raise 'In this wagon no free volume! Choose another wagon.' if @free_volume.zero? && value > @free_volume
   end
   end
