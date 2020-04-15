@@ -15,6 +15,7 @@ module Validate
 
   def validate_type!
     return if type == type
+
     raise 'Invalid type of train! Choose another wagon or train.'
   end
 
