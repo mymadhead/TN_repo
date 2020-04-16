@@ -34,18 +34,20 @@ class Station
   end
 
   def each_train
-    @trains.map { |train| yield train}
+    @trains.map { |train| yield train }
   end
 
   def to_s
     each_train do |train|
-      puts "Number: #{train.number}, type: #{train.type}, wagons: #{train.number_of_wagons}."
+      puts "Number: #{train.number}"\
+            "type: #{train.type}"\
+            " wagons: #{train.number_of_wagons}"
     end
   end
 
-  private
+    private
 
   def validate!
     validate_name!
   end
-  end
+end

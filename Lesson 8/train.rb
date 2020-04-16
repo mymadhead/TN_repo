@@ -61,6 +61,7 @@ class Train
 
   def move_forward
     return unless can_move_forward?
+
     current_station_index = @route.route_stations.index(current_station)
     leave_station
     @route.route_stations[current_station_index + 1].arrive_train(self)
@@ -68,17 +69,18 @@ class Train
 
   def move_backward
     return unless can_move_backward?
+
     current_station_index = @route.route_stations.index(current_station)
     leave_station
     @route.route_stations[current_station_index - 1].arrive_train(self)
   end
 
   def can_move_forward?
-  current_station == @route.departure
+    current_station == @route.departure
   end
 
   def can_move_backward?
-  current_station == @route.destination
+    current_station == @route.destination
   end
 
   def leave_station
@@ -90,11 +92,11 @@ class Train
   end
 
   def train_info
-    puts "Train №#{self.number}, type: #{self.type}, wagons count: #{self.wagons.size}"
+    puts "Train №#{number}, type: #{type}, wagons count: #{wagons.size}"
   end
 
   def wagon_info
-    each_wagon { |wagon| wagon.info }
+    each_wagon(&:info)
   end
 
   def number_of_wagons
@@ -112,4 +114,3 @@ class Train
     validate_format!
   end
 end
-

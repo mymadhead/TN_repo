@@ -22,7 +22,7 @@ class Interface
 
   def main_menu
     puts 'Please choose what do you want to do:'
-    puts 'Type 1, to create station, route for train or add/remove wagons from train.'
+    puts 'Type 1, to create station, route for train or add/remove wagons.'
     puts 'Type 2, to use created stations, routes, wagons.'
     puts 'Type 3, to look at created stations, routes, wagons.'
     puts 'Type 4, to test program.'
@@ -46,7 +46,6 @@ class Interface
   end
 
   def create_menu
-    puts 'What do you want to do?'
     puts 'Type 1, to create a station.'
     puts 'Type 2, to create a train.'
     puts 'Type 3, to create a route for train.'
@@ -99,7 +98,6 @@ class Interface
   end
 
   def watch_menu
-    puts 'What do you looking for?'
     puts 'Type 1, to look at created stations.'
     puts 'Type 2, to look at created trains.'
     puts 'Type 3, to look at created routes.'
@@ -397,7 +395,7 @@ class Interface
       input
       input until valid_input?(@routes)
       @trains.assign_route(@routes[@input.to_i - 1])
-      puts "The route #{@routes[@input.to_i - 1]} was set to the train #{@trains.number}"
+      puts "The route #{@routes[@input.to_i - 1]} was set to #{@trains.number}"
     end
   end
 
@@ -434,7 +432,7 @@ class Interface
     elsif !@wagon
       puts 'Chose some wagon at first!'
       add_wagon_menu
-    elsif @speed > 0
+    elsif @speed.positive?
       puts 'Stop the train at first!'
     else
       puts 'Wrong type of wagon.'
@@ -584,7 +582,7 @@ class Interface
   end
 
   def valid_input?(arr)
-    @input.to_i > 0 && @input.to_i <= arr.size
+    @input.to_i.positive? && @input.to_i <= arr.size
   end
 
   def stations_list

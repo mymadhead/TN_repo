@@ -12,19 +12,21 @@ module Validate
   end
 
   def validate_number!
-    raise 'Number cannot be empty! It must contains numbers!' if number.empty? && number.length < 5
+    return if !number.empty? || number.length >= 5
+
+    raise 'Number cannot be empty! It must contains numbers!'
   end
 
   def validate_type!
-    return if type == type
+    return unless wagons.type == type
 
     raise 'Invalid type of train! Choose another wagon or train.'
   end
 
   def validate_name!
-  unless name !~ NUMBER_FORMAT
+    return if  name !~ NUMBER_FORMAT
+
     raise 'Name format: start with capital letter than downcase letters.'
-  end
   end
 
   def validate_route!
@@ -32,7 +34,9 @@ module Validate
   end
 
   def validate_format!
-    raise 'Character format is incorrect! Try again!' unless number !~ NUMBER_FORMAT
+    return if number !~ NUMBER_FORMAT
+
+    raise 'Character format is incorrect! Try again!'
   end
 
   def validate_speed!
@@ -40,15 +44,21 @@ module Validate
   end
 
   def validate_wagon_type!
-    raise 'Wagon type is incorrect! Take another wagon type or train!' unless type == self.type
+    return if wagons.type == type
+
+    raise 'Wagon type is incorrect! Take another wagon type or train!'
   end
 
   def validate_seats!
-    raise 'Number of seats should be an integer and more than 0' unless @seats > 0 && @seats.is_a?(Wagon)
+    return if @seats.positive? && @seats.is_a?(Wagon)
+
+    raise 'Number of seats should be an integer and more than 0'
   end
 
   def validate_free_seats!
-    raise 'In this wagon no free seats! Choose another wagon.' if @free_seats.zero?
+    return unless @free_seats.zero?
+
+    raise 'In this wagon no free seats! Choose another wagon.'
   end
 
   def validate_volume!
@@ -56,6 +66,8 @@ module Validate
   end
 
   def validate_free_volume!
-    raise 'In this wagon no free volume! Choose another wagon.' if @free_volume.zero? && value > @free_volume
+    return unless @free_volume.zero? && value > @free_volume
+
+    raise 'In this wagon no free volume! Choose another wagon.'
   end
-  end
+end

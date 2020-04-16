@@ -38,4 +38,3 @@ class Route
     validate_route!
   end
 end
-
