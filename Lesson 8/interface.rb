@@ -22,7 +22,7 @@ class Interface
 
   def main_menu
     puts 'Please choose what do you want to do:'
-    puts 'Type 1, to create station, route for train or add/remove wagons.'
+    puts 'Type 1, to create station,train,route or add/remove wagons to train.'
     puts 'Type 2, to use created stations, routes, wagons.'
     puts 'Type 3, to look at created stations, routes, wagons.'
     puts 'Type 4, to test program.'
