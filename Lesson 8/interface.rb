@@ -318,7 +318,9 @@ class Interface
       input until valid_input?(@stations)
       departure = @stations[@input.to_i - 1]
       puts 'Type number of destination station:'
-      input until valid_input?(@stations) && @stations[@input.to_i - 1] != departure
+      while !valid_input?(@stations) || @stations[@input.to_i - 1] == departure
+        input
+      end
       destination = @stations[@input.to_i - 1]
       @routes ||= []
       @routes << Route.new(departure, destination)
@@ -489,14 +491,16 @@ class Interface
       routes_list
       input
       input until valid_input?(@routes)
-      used_route_index = @input.to_i - 1
+      route_index = @input.to_i - 1
       puts 'Chose station:'
       stations_list
       input
       input until valid_input?(@stations)
-      used_station_index = @input.to_i - 1
-      @routes[used_route_index].add_transit_point(@stations[used_station_index]) until @routes[used_route_index].stations.include?(@stations[used_station_index])
-      puts "Station #{@stations[@input.to_i - 1].name} added to the chosen route."
+      station_index = @input.to_i - 1
+      until @routes[route_index].stations.include?(@stations[station_index])
+        @routes[route_index].add_transit_station(@stations[station_index])
+      end
+      puts "Station #{@stations[@input.to_i - 1].name} added to chosen route."
     end
   end
 
@@ -510,8 +514,8 @@ class Interface
       routes_list
       input
       input until valid_input?(@routes)
-      used_route_index = @input.to_i - 1
-      if @routes[used_route_index].stations.size == 2
+      route_index = @input.to_i - 1
+      if @routes[route_index].stations.size == 2
         puts 'Route must contents at least 2 stations!'
         puts "You can't delete station, anymore."
       else
@@ -519,22 +523,24 @@ class Interface
         route_stations_list
         input
         input until valid_input?(@stations)
-        @routes[used_route_index].del_transit_point(@stations[@input.to_i - 1]) while @routes.include?(@stations[@input.to_i])
-        puts "Station #{@stations[@input.to_i - 1].name} deleted from the chosen route."
+        while @routes.include?(@stations[@input.to_i])
+          @routes[route_index].del_transit_station(@stations[@input.to_i - 1])
+        end
+        puts "St.#{@stations[@input.to_i - 1].name} deleted from chosen route."
       end
     end
   end
 
   def go_next_station_menu
     @trains.move_forward
-    puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
+    puts "Train #{@trains.number} on #{@trains.current_station.name} station."
   rescue StandardError => e
     puts e.message
   end
 
   def go_previous_station_menu
     @trains.move_backward
-    puts "Train #{@trains.number} now on the #{@trains.current_station.name} station."
+    puts "Train #{@trains.number} on #{@trains.current_station.name} station."
   rescue StandardError => e
     puts e.message
   end
@@ -587,7 +593,9 @@ class Interface
 
   def stations_list
     puts 'Stations:'
-    @stations.each { |station| puts "#{@stations.index(station) + 1}: #{station.name}" }
+    @stations.each do |station|
+      puts "#{@stations.index(station) + 1}: #{station.name}"
+    end
   rescue StandardError
     puts 'You must create some station!'
   end
@@ -640,14 +648,18 @@ class Interface
 
   def train_wagons_list
     puts "Wagons of the train #{@trains.number}"
-    @trains.wagons.each { |wagon| puts "#{@trains.wagons.index(wagon) + 1}: #{wagon.number}" }
+    @trains.wagons.each do |wagon|
+      puts "#{@trains.wagons.index(wagon) + 1}: #{wagon.number}"
+    end
   rescue StandardError
     puts 'You must create some wagon!'
   end
 
   def route_stations_list
     puts 'Stations of the current route:'
-    @routes[@input.to_i - 1].each { |station| puts "#{@routes[@input.to_i - 1].index(station) + 1}: #{station.name}" }
+    @routes[@input.to_i - 1].each do |station|
+      puts "#{@routes[@input.to_i - 1].index(station) + 1}: #{station.name}"
+    end
   rescue StandardError
     puts 'You must create some stations to routes at first!'
   end
@@ -666,9 +678,9 @@ class Interface
         puts '0 trains.'
       else
         puts 'Passenger trains on station:'
-        puts @stations[station_number - 1].show_trains_on_station_by_type('pass').each.number
+        puts @stations[station_number - 1].trains_by_type('pass').each.number
         puts 'Cargo trains on station:'
-        puts @stations[station_number - 1].show_trains_on_station_by_type('cargo').each.number
+        puts @stations[station_number - 1].trains_by_type('cargo').each.number
       end
     end
   end

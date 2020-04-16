@@ -12,18 +12,18 @@ class Train
   attr_accessor :speed
   attr_reader :number, :wagons, :type
 
-  @@all = []
+  @all = []
 
   def initialize(number)
     register_instance
     @number = number.to_s
     @speed = 0
     validate!
-    @@all << self
+    @all << self
   end
 
   def self.find(number)
-    @@all.find { |train| train.number == number }
+    @all.find { |train| train.number == number }
   end
 
   def speed_up

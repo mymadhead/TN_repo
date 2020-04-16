@@ -11,8 +11,8 @@ class Station
   def initialize(name)
     @name = name
     validate!
-    @@all ||= []
-    @@all << self
+    @all ||= []
+    @all << self
     register_instance
   end
 
@@ -29,7 +29,7 @@ class Station
     @trains.delete(train)
   end
 
-  def show_trains_on_station_by_type(by_type)
+  def trains_by_type(by_type)
     @trains.select { |train| train.type == by_type }
   end
 
@@ -40,12 +40,12 @@ class Station
   def to_s
     each_train do |train|
       puts "Number: #{train.number}"\
-            "type: #{train.type}"\
-            " wagons: #{train.number_of_wagons}"
+           "type: #{train.type}"\
+           "wagons: #{train.number_of_wagons}"
     end
   end
 
-    private
+  private
 
   def validate!
     validate_name!

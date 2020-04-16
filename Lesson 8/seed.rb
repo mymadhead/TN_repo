@@ -10,7 +10,7 @@ class Seed
     station_seed
     @trains << CargoTrain.new(%w[1 2 3 4].sample)
     @trains << PassengerTrain.new(%w[1 2 3 4].sample)
-      # route_seed
+    # route_seed
   end
 
   def station_seed
@@ -19,11 +19,9 @@ class Seed
     end
   end
 
-=begin
-  def route_seed
-    @routes << Route.new(stations.first, stations.last)
-    @routes.first.add_transit_station(stations[1])
-    @routes.first.add_transit_station(stations[2])
-  end
-=end
+  #   def route_seed
+  #     @routes << Route.new(stations.first, stations.last)
+  #     @routes.first.add_transit_station(stations[1])
+  #     @routes.first.add_transit_station(stations[2])
+  #   end
 end
