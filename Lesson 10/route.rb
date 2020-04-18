@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require_relative 'instance_counter'
-require_relative 'validate'
+require_relative 'validation'
 
 class Route
   include InstanceCounter
-  include Validate
+  include Validation
 
   attr_reader :stations, :departure, :destination, :transit_stations, :route_name
   def initialize(departure, destination)

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'validate'
+require_relative 'validation'
 
 class CargoWagon < Wagon
-  include Validate
+  include Validation
   attr_accessor :free_volume, :taken_volume
 
   def initialize(number, volume)

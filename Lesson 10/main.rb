@@ -11,5 +11,7 @@ require_relative 'cargo_wagon'
 require_relative 'passenger_wagon'
 require_relative 'seed'
 require_relative 'manufacturer'
+require_relative 'validation'
+require_relative 'instance_counter'
 
 Interface.new.start

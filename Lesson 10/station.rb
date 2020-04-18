@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative 'instance_counter'
-require_relative 'validate'
+require_relative 'validation'
 
 class Station
-  include Validate
+  include Validation
   include InstanceCounter
 
   attr_reader :trains, :name

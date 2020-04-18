@@ -2,12 +2,12 @@
 
 require_relative 'manufacturer'
 require_relative 'instance_counter'
-require_relative 'validate'
+require_relative 'validation'
 
 class Train
   include Manufacturer
   include InstanceCounter
-  include Validate
+  include Validation
 
   attr_accessor :speed
   attr_reader :number, :wagons, :type

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'validate'
+require_relative 'validation'
 
 class PassengerWagon < Wagon
-  include Validate
+  include Validation
   attr_accessor :free_seats, :taken_seats, :seats
 
   def initialize(number, seats)
