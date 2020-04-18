@@ -9,7 +9,7 @@ class CargoTrain < Train
 
   def wagons_to_s
     each_wagon do |wagon|
-      puts "Carriage number: #{wagon.number}" \
+      puts "Wagon number: #{wagon.number}" \
            "type: #{wagon.type}" \
            "free volume: #{wagon.free_volume}" \
            "taken volume: #{wagon.taken_volume}"
