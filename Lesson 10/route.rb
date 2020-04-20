@@ -12,7 +12,6 @@ class Route
     @stations = [departure, destination]
     @transit_stations = []
     @route_name = "#{departure.name}->#{destination.name}"
-    validate!
     register_instance
   end
 
@@ -34,7 +33,5 @@ class Route
 
   private
 
-  def validate!
-    validate_route!
-  end
+
 end

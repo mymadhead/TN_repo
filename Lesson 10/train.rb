@@ -18,7 +18,6 @@ class Train
     register_instance
     @number = number.to_s
     @speed = 0
-    validate!
     @all << self
   end
 
@@ -40,7 +39,6 @@ class Train
 
   def add_wagon(wagon)
     stop_train
-    validate_wagon_type!
     @wagons ||= []
     @wagons << wagon
   end
@@ -106,11 +104,5 @@ class Train
 
   private
 
-  def validate!
-    validate_number!
-    validate_type!
-    validate_speed!
-    validate_wagon_type!
-    validate_format!
-  end
+
 end

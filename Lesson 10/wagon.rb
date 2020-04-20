@@ -11,7 +11,6 @@ class Wagon
 
   def initialize(number)
     @number = number
-    validate!
   end
 
   def info
@@ -28,9 +27,4 @@ class Wagon
 
   private
 
-  def validate!
-    validate_number!
-    validate_type!
-    validate_format!
-  end
 end

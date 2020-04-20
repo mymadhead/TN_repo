@@ -11,7 +11,6 @@ class PassengerWagon < Wagon
     @seats = seats
     @free_seats = @seats
     @taken_seats = @seats - @free_seats
-    validate!
   end
 
   def type
@@ -19,13 +18,10 @@ class PassengerWagon < Wagon
   end
 
   def take_seat
-    validate_free_seats!
     @free_seats -= 1
   end
 
   private
 
-  def validate!
-    validate_seats!
-  end
+
 end

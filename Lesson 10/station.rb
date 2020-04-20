@@ -10,7 +10,6 @@ class Station
   attr_reader :trains, :name
   def initialize(name)
     @name = name
-    validate!
     @all ||= []
     @all << self
     register_instance
@@ -46,8 +45,4 @@ class Station
   end
 
   private
-
-  def validate!
-    validate_name!
-  end
 end

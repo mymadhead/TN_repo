@@ -11,7 +11,6 @@ class CargoWagon < Wagon
     @volume = volume
     @free_volume = @volume
     @taken_volume = @volume - @free_volume
-    validate!
   end
 
   def type
@@ -19,13 +18,10 @@ class CargoWagon < Wagon
   end
 
   def take_volume(value)
-    validate_free_volume!
     @free_volume -= value
   end
 
   private
 
-  def validate!
-    validate_volume!
-  end
+
 end
