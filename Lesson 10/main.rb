@@ -14,4 +14,8 @@ require_relative 'manufacturer'
 require_relative 'validation'
 require_relative 'instance_counter'
 
-Interface.new.start
+menu = Interface.new
+
+loop do
+  menu.menu_choice
+end
