@@ -1,3 +1,4 @@
+=begin
 # frozen_string_literal: true
 
 def main_menu
@@ -285,3 +286,4 @@ end
 def seed_message
   puts 'Stations, routes and trains successfully created!'
 end
+=end
