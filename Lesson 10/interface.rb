@@ -122,6 +122,8 @@ class Interface
       create_cargo_train
     when 2
       create_pass_train
+    else
+      puts 'Wrong input!'
     end
   end
 

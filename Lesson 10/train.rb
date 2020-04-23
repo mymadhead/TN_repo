@@ -12,6 +12,12 @@ class Train
   attr_accessor :speed
   attr_reader :number, :wagons, :type
 
+  NUMBER_FORMAT = /^[a-z0-9а-я]{3}-?[a-z0-9а-я]{2}$/i.freeze
+
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+  validate :number, :type, String
+
   @all = []
 
   def initialize(number)
@@ -101,6 +107,4 @@ class Train
     @wagons ||= []
     @wagons.count
   end
-
-  private
 end

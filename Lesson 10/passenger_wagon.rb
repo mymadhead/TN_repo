@@ -20,6 +20,4 @@ class PassengerWagon < Wagon
   def take_seat
     @free_seats -= 1
   end
-
-  private
 end

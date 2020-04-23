@@ -20,6 +20,4 @@ class CargoWagon < Wagon
   def take_volume(value)
     @free_volume -= value
   end
-
-  private
 end

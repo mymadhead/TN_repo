@@ -8,8 +8,11 @@ class Station
   include InstanceCounter
 
   attr_reader :trains, :name
+  validate :name, :presence
+
   def initialize(name)
     @name = name
+    validate!
     @all ||= []
     @all << self
     register_instance
@@ -43,6 +46,4 @@ class Station
            "wagons: #{train.number_of_wagons}"
     end
   end
-
-  private
 end

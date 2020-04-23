@@ -7,9 +7,12 @@ class Route
   include InstanceCounter
   include Validation
 
-  attr_reader :stations, :departure, :destination, :transit_stations, :route_name
+  attr_reader :departure, :destination, :transit_stations, :route_name
+  validate :departure, :uniqness, :destination
+
   def initialize(departure, destination)
     @stations = [departure, destination]
+    validate!
     @transit_stations = []
     @route_name = "#{departure.name}->#{destination.name}"
     register_instance
@@ -30,6 +33,4 @@ class Route
   def to_s
     puts "Current route: #{departure.name}->#{destination.name}"
   end
-
-  private
 end

@@ -24,6 +24,4 @@ class Wagon
            "taken volume: #{@taken_seats}"
     end
   end
-
-  private
 end
