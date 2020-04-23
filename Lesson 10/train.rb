@@ -103,6 +103,4 @@ class Train
   end
 
   private
-
-
 end

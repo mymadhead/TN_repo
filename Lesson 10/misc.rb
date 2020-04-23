@@ -1,5 +1,6 @@
-def main_menu
+# frozen_string_literal: true
 
+def main_menu
   puts 'Type 1, to create station,train,route or add/remove wagons to train.'
   puts 'Type 2, to use created stations, routes, wagons.'
   puts 'Type 3, to look at created stations, routes, wagons.'
@@ -273,8 +274,6 @@ def add_wagon_menu
   end
 end
 
-
-
 def seed
   seed = Seed.new
   @stations = seed.stations
@@ -286,4 +285,3 @@ end
 def seed_message
   puts 'Stations, routes and trains successfully created!'
 end
-

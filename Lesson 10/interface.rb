@@ -1,46 +1,51 @@
 # frozen_string_literal: true
 
 class Interface
-
   def main_menu
     puts 'Please chose what do you want to do:'
     puts 'Type 1, to create station'
     puts 'Type 2, to create train'
     puts 'Type 3, to create route'
-    puts 'Type 4, to add/remove or watch station at the route'
-    puts 'Type 5, to assign route to the train'
-    puts 'Type 6, to add wagon to the train'
-    puts 'Type 7, to remove wagon from train'
-    puts 'Type 8, to take seat or volume at wagon'
-    puts 'Type 9, to move train on route'
-    puts 'Type 10, to watch station list'
-    puts 'Type 11, to watch train list'
-    puts 'Type 12, to watch wagons list'
-    puts 'Type 13, to increase speed of a train'
-    puts 'Type 14, to decrease speed of a train'
-    puts 'Type 15, to add test data(stations, trains, routes)'
-    puts 'Type 16, to test accessors'
-    puts 'Type 17, to exit'
+    puts 'Type 4, to add station at the route'
+    puts 'Type 5, to remove station at the route'
+    puts 'Type 6, to assign route to the train'
+    puts 'Type 7, to add wagon to the train'
+    puts 'Type 8, to remove wagon from train'
+    puts 'Type 9, to take seat at wagon'
+    puts 'Type 10, to take volume at wagon'
+    puts 'Type 11, to move train forward on route'
+    puts 'type 12, to move train backward on route'
+    puts 'Type 13, to watch station list'
+    puts 'Type 14, to watch train list'
+    puts 'Type 15, to watch wagons list'
+    puts 'Type 16, to increase speed of a train'
+    puts 'Type 17, to decrease speed of a train'
+    puts 'Type 18, to add test data(stations, trains, routes)'
+    puts 'Type 19, to test accessors'
+    puts 'Type 20, to exit'
   end
 
   MENU_CHOICE = {
     1 => :create_station_menu,
     2 => :create_train_menu,
     3 => :create_route_menu,
-    4 => :edit_route_menu,
-    5 => :set_route_menu,
-    6 => :add_wagon_menu,
-    7 => :remove_wagon_menu,
-    8 => :take_seat_or_volume,
-    9 => :move_train_on_route,
-    10 => :stations_list,
-    11 => :trains_list,
-    12 => :wagons_list,
-    13 => :increase_speed,
-    14 => :decrease_speed,
-    15 => :seed,
-    16 => :test_accessors,
-    17 => :exit
+    4 => :add_station_menu,
+    5 => :remove_station_menu,
+    6 => :set_route_menu,
+    7 => :add_wagon_menu,
+    8 => :remove_wagon_menu,
+    9 => :take_seat_at_chosen_wagon,
+    10 => :take_volume_at_chosen_wagon,
+    11 => :go_next_station_menu,
+    12 => :go_previous_station_menu,
+    13 => :stations_list,
+    14 => :trains_list,
+    15 => :wagons_list,
+    16 => :increase_speed,
+    17 => :decrease_speed,
+    18 => :seed,
+    19 => :test_accessors,
+    20 => :exit
   }.freeze
 
   def initialize
@@ -51,7 +56,7 @@ class Interface
 
   def menu_choice
     user_choice = 0
-    until (1..17).cover?(user_choice)
+    until (1..20).cover?(user_choice)
       main_menu
       user_choice = gets.to_i
     end
@@ -111,7 +116,7 @@ class Interface
     puts "Train added #{number}"
   end
 
-  def add_train(number, user_choice)
+  def add_train(_number, user_choice)
     case user_choice
     when 1
       create_cargo_train

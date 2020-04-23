@@ -26,5 +26,4 @@ class Wagon
   end
 
   private
-
 end

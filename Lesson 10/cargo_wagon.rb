@@ -22,6 +22,4 @@ class CargoWagon < Wagon
   end
 
   private
-
-
 end

@@ -22,6 +22,4 @@ class PassengerWagon < Wagon
   end
 
   private
-
-
 end

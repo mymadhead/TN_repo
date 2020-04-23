@@ -32,6 +32,4 @@ class Route
   end
 
   private
-
-
 end
