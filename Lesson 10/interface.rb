@@ -64,6 +64,18 @@ class Interface
     send(MENU_CHOICE[user_choice])
   end
 
+  def seed
+    seed = Seed.new
+    @stations = seed.stations
+    @trains = seed.trains
+    @routes = seed.routes
+    seed_message
+  end
+
+  def seed_message
+    puts 'Stations, routes and trains successfully created!'
+  end
+
   def create_station_menu
     puts 'Type station name:'
     input
@@ -477,5 +489,19 @@ class Interface
         puts @stations[station_number - 1].trains_by_type('cargo').each.number
       end
     end
+  end
+
+  def test_accessors
+    w = Wagon.new
+    puts "New wagon added #{w}"
+    w.manufacturer = 'rzhd'
+    puts "Manufacturer: #{w.manufacturer}"
+    w.manufacturer = 'rzhd2'
+    puts "New manufacturer: #{w.manufacturer}"
+
+    puts "Manufacturer history: #{w.manufacturer_history.join(', ')}"
+
+    puts "Testing strong accessors, valid format #{w.test_strong = 'kslslsl'}"
+    puts "Тестируем strong accessors, not valid format #{w.test_strong = 333}"
   end
 end

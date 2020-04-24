@@ -17,7 +17,7 @@ module Validation
 
   module InstanceMethods
     def validate!
-      self.class.validations.each do |validation|
+      self.class.validations do |validation|
         validation_method = "validate_#{validation[:type]}".to_sym
         send(validation_method, validation[:attr], validation[:param])
       end

@@ -18,13 +18,16 @@ class Train
   validate :number, :format, NUMBER_FORMAT
   validate :number, :type, String
 
-  @all = []
+  @@trains = {}
 
   def initialize(number)
-    register_instance
-    @number = number.to_s
+    @type = type == :cargo ? 'Cargo' : 'Passenger'
+    @number = number
+    validate!
     @speed = 0
-    @all << self
+    @wagons = []
+    @@trains[number] = self
+    register_instance
   end
 
   def self.find(number)
